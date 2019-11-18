@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './static/logo.svg';
+import "styles/styles.scss";
 
 export const App = () => {
     return (
