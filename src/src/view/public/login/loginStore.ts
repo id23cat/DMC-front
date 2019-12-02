@@ -1,6 +1,4 @@
 import { action, observable } from "mobx";
-import { AccountApi } from "../../../core/api/accountApi";
-import { SignInDataDto } from "../../../typings/dataContracts";
 import { userContextStore } from "../../../stores/userContextStore";
 import { routingStore } from "../../../stores/routingStore";
 import { notifications } from "../../../components/notifications/notifications";
@@ -13,10 +11,7 @@ export class LoginStore {
     @action public setPassword = (value?: string) => this.password = value;
 
     public signIn = async () => {
-        const result = await AccountApi.signIn(SignInDataDto.fromJS({
-            login: this.login,
-            password: this.password,
-        }));
+        const result = { succeeded: true };
 
         if (result.succeeded) {
             await userContextStore.loadContext();

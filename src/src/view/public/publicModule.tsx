@@ -1,8 +1,8 @@
-import { IRoute, RoutesModule } from "../../core/routing/routesModule";
+import { Route, RoutesModule } from "../../core/routing/routesModule";
 import React from "react";
 import { Login } from "./login/login";
 
-const routes: Array<IRoute> = [
+const routes: Array<Route> = [
     {
         path: "/login",
         component: Login,
