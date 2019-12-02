@@ -18,8 +18,8 @@ export const Login = observer(() => {
                 <Form onValidSubmit={store.signIn}>
                     <FormInput
                         label="Login"
-                        onChange={store.setLogin}
-                        value={store.login}
+                        onChange={store.setUsername}
+                        value={store.username}
                         validations={[required]}/>
                     <FormInput
                         label="Password"

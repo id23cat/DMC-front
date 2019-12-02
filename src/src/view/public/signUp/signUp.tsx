@@ -22,7 +22,7 @@ export const SignUp = observer(() => {
                 <CardSection>
                     <FormInput
                         label="Login"
-                        value={store.login}
+                        value={store.username}
                         onChange={store.setLogin}
                         validations={[required]}
                     />

@@ -36,7 +36,7 @@
     "@typescript-eslint/parser": "^2.9.0",
     "eslint": "^6.7.1"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",
