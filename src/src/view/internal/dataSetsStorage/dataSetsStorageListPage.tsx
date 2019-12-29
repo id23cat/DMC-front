@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionActionConfigs, CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import useAsyncEffect from "use-async-effect";
 import { routingStore } from "../../../stores/routingStore";
+
+const actions: Array<CardSectionActionConfigs> = [
+    {
+        title: "DataSetsStorage_AddNewDataSet",
+        onClick: () => routingStore.goto("/data-sets/add"),
+        color: "primary",
+    },
+];
 
 export const DataSetsStorageListPage = () => {
     const [dataItems, setDataItems] = useState<Array<DataSetListItem>>([]);
@@ -14,7 +22,7 @@ export const DataSetsStorageListPage = () => {
     }, []);
 
     return (
-        <CardSectionsGroup>
+        <CardSectionsGroup topActions={actions}>
             <CardSection title="YourDataSets">
                 <ListGroup>
                     {dataItems.map((d, index) => (

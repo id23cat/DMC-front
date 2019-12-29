@@ -21,5 +21,6 @@
   "Remove": "Remove",
   "Email": "Email",
   "DataSetsStorage": "Data Sets Storage",
-  "YourDataSets": "Your Data Sets"
+  "YourDataSets": "Your Data Sets",
+  "DataSetsStorage_AddNewDataSet": "Add New Data Set"
 }
