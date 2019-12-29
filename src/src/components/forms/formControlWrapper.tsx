@@ -1,9 +1,10 @@
 import { Local } from "../../core/localization/local";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { ControlProps } from "../controls";
 import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
+import { Icon, icons } from "../icons/icon";
 
 export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TValue>> {
     label: string;
@@ -28,7 +29,7 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
     useEffect(() => {
         const validator = () => {
             setIsUsed(true);
-            return !validate(controlProps.value, validations)
+            return !validate(controlProps.value, validations);
         };
         context.add(validator);
         return () => context.remove(validator);
@@ -38,19 +39,33 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
         setIsUsed(true);
         controlProps.onChange(value);
     };
+
     const error = validate(controlProps.value, validations);
 
+    const serializerProps = JSON.stringify(controlProps);
+    const memoControl = useMemo(
+        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [serializerProps, isUsed, name, error]);
+    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error}/>, [error, isUsed]);
+
     return (
-        <FormGroup className={getClassNames(isUsed, error)}>
+        <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
             <label htmlFor={name}><Local id={label}/></label>
-            <Control id={name} {...controlProps} onChange={onChange}/>
-            {isUsed && error && <ErrorMessage error={error}/>}
+            {memoControl}
+            {errorMessage}
         </FormGroup>
     );
 };
 
-function getClassNames(isChanged: boolean, error?: string): string {
-    return isChanged && error ? "invalid" : "";
+function getClassNames(isUsed: boolean, error?: string): string {
+    const classNames = [];
+
+    if (isUsed && error) {
+        classNames.push("invalid");
+    }
+
+    return classNames.join(" ");
 }
 
 function validate(value?: any, validations?: Array<ValidationFunction<any>>): string | undefined {
@@ -71,6 +86,9 @@ interface ErrorMessageProps {
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
-        <span><Local id={`validation_${error}`}/></span>
+        <span className="validation-error">
+            <Icon icon={icons.error}/>
+            <Local id={`validation_${error}`}/>
+        </span>
     );
 };

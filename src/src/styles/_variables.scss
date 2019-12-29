@@ -1,0 +1,14 @@
+$colors: (
+    "background": #F8F7F9,
+    "primary": #4e5191,
+    "error": #ff1a26,
+    "success": #54a941,
+    "border-color": #9799c7,
+);
+
+@function color($color) {
+    @return map-get($colors, $color);
+}
+
+$header-height: 60px;
+$control-focus-width: .2rem;

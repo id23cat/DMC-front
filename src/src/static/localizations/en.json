@@ -1,4 +1,23 @@
 {
+  "UnexpectedErrorHappened":  "Unexpected Error Happened.\n Id: {id}\n Code: {code}",
   "validation_required": "This field is required.",
-  "validation_repeatPasswordNotEqual": "Passwords should be equal."
+  "validation_repeatPasswordNotEqual": "Passwords should be equal.",
+  "validation_invalidEmailAddress": "Invalid email address.",
+  "validation_nameShouldBeUniq": "Name should be uniq.",
+  "SuccessfullySaved": "Successfully Saved",
+  "Login": "Login",
+  "Password": "Password",
+  "SignIn": "Sign in",
+  "SignUp": "Sign up",
+  "Submit": "Submit",
+  "Save": "Save",
+  "Edit": "Edit",
+  "Cancel": "Cancel",
+  "SelectItems": "Select items...",
+  "Select": "Select...",
+  "RepeatPassword": "Repeat Password",
+  "SignOut": "Sign Out",
+  "None": "None",
+  "Remove": "Remove",
+  "Email": "Email"
 }

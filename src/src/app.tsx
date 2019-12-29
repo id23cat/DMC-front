@@ -11,9 +11,10 @@ import { IntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 import { NotificationsContainer } from "./components/notifications/notifications";
+import { ApiErrorHandler } from "./core/api/http/apiErrorHandler";
 
 export const App = observer(() => {
-    const [contextLoaded, setIsContextLoaded] = useState<boolean>(false);
+    const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
     useAsyncEffect(async () => {
         await userContextStore.loadContext();
         setIsContextLoaded(true);
@@ -22,29 +23,17 @@ export const App = observer(() => {
     return (
         <>
             <IntlProvider locale={localStore.language} messages={localStore.messages}>
-                {contextLoaded ? (
-                    <ContextDepended>
+                <Router history={routingStore.history}>
+                    <ApiErrorHandler>
                         <MainLayout>
-                            <RootModule/>
+                            {isContextLoaded && <RootModule/>}
                         </MainLayout>
-                    </ContextDepended>
-                ) : <MainLayout/>}
+                    </ApiErrorHandler>
+                </Router>
                 {NotificationsContainer}
             </IntlProvider>
             <LoadingAnimationWrapper/>
         </>
     );
 });
-
-interface Props {
-    children: React.ReactNode | React.ReactNodeArray;
-}
-
-const ContextDepended = ({ children }: Props) => {
-    return (
-        <Router history={routingStore.history}>
-            {children}
-        </Router>
-    );
-};
 

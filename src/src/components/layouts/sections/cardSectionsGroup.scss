@@ -1,7 +1,31 @@
 .card-sections-group {
+    & > .top-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        & > *:not(:last-child) {
+            margin-right: .5rem;
+        }
+    }
+
     & > .actions {
         display: flex;
         justify-content: flex-end;
-        margin-top: 20px;
+
+        & > *:not(:last-child) {
+            margin-right: .5rem;
+        }
+    }
+
+    & > div:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    .card-section {
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
     }
 }

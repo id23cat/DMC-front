@@ -4,13 +4,14 @@ import { Login } from "./login/login";
 
 const routes: Array<Route> = [
     {
+        path: "/",
+        exact: true,
+        redirectTo: "/login",
+    },
+    {
         path: "/login",
         component: Login,
     },
-    {
-        path: "/",
-        redirectTo: "/login"
-    },
 ];
 
-export const PublicModule = () => <RoutesModule routes={routes}/>;
+export const PublicModule = () => <RoutesModule routes={routes} />;

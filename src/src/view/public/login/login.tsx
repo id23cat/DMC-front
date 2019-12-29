@@ -3,7 +3,7 @@ import { LoginStore } from "./loginStore";
 import React from "react";
 import { Col, Row, Button } from "reactstrap";
 import { Local } from "../../../core/localization/local";
-import { required } from "../../../components/forms/validations";
+import { emailValidation, required } from "../../../components/forms/validations";
 import { FormInput } from "../../../components/forms";
 import { Form } from "../../../components/forms/form";
 import { routingStore } from "../../../stores/routingStore";
@@ -18,19 +18,20 @@ export const Login = observer(() => {
                 <Form onValidSubmit={store.signIn}>
                     <FormInput
                         label="Login"
-                        onChange={store.setUsername}
-                        value={store.username}
-                        validations={[required]}/>
+                        type="email"
+                        onChange={store.setLogin}
+                        value={store.login}
+                        validations={[required, emailValidation]} />
                     <FormInput
                         label="Password"
                         type="password"
                         onChange={store.setPassword}
                         value={store.password}
-                        validations={[required]}/>
-                    <Button>
-                        <Local id="SignIn"/>
+                        validations={[required]} />
+                    <Button color="primary">
+                        <Local id="SignIn" />
                     </Button>
-                    <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp"/>
+                    <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp" />
                 </Form>
             </Col>
         </Row>

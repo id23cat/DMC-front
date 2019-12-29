@@ -10,6 +10,9 @@ export class ApiError {
 
 export const apiErrors = {
     loginIsNotUniq: "6",
+    invalidEmailConfirmationToken: "9",
+    notConfirmedEmail: "10",
+    studentTestSessionEnded: "11",
 };
 
 export function isExpected(ex: any, ...codes: string[]) {
