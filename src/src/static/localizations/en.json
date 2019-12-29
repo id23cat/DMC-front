@@ -19,5 +19,7 @@
   "SignOut": "Sign Out",
   "None": "None",
   "Remove": "Remove",
-  "Email": "Email"
+  "Email": "Email",
+  "DataSetsStorage": "Data Sets Storage",
+  "YourDataSets": "Your Data Sets"
 }

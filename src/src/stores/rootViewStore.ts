@@ -3,7 +3,12 @@ import { AccountMenuItem, NavItemConfig } from "../components/layouts/header/hea
 import { userContextStore } from "./userContextStore";
 import { routingStore } from "./routingStore";
 
-const navItems: Array<NavItemConfig> = [];
+const navItems: Array<NavItemConfig> = [
+    {
+        href: "/data-sets",
+        title: "DataSetsStorage"
+    }
+];
 
 const accountMenuItems: Array<AccountMenuItem> = [
     {

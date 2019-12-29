@@ -5,7 +5,8 @@ class UserContextStore {
     @observable public id?: string;
 
     constructor() {
-        this.isAuthenticated = false;
+        //TODO: change
+        this.isAuthenticated = true;
     }
 
     public loadContext = async () => {

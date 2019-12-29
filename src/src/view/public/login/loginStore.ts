@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from "mobx";
+import { action, observable } from "mobx";
 import { userContextStore } from "../../../stores/userContextStore";
 
 export class LoginStore {
@@ -11,12 +11,7 @@ export class LoginStore {
     @action
     public signIn = async () => {
         //TODO: stub
-
+        userContextStore.isAuthenticated = true;
         await userContextStore.loadContext();
-        const flag = userContextStore.isAuthenticated;
-        runInAction(() => {
-            userContextStore.isAuthenticated = true;
-
-        });
     };
 }
