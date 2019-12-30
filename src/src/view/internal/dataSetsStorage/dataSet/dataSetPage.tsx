@@ -12,6 +12,7 @@ import { FormInput } from "../../../../components/forms";
 import { required } from "../../../../components/forms/validations";
 import { DataSetColumn } from "./dataSetColumn";
 import { Col, ListGroup, Row } from "reactstrap";
+import { SingleFileUploader } from "../../../../components/controls/fileUpload/singleFileUploader";
 
 const actions: Array<CardSectionActionConfigs> = [
     {
@@ -43,7 +44,10 @@ export const DataSetPage = observer(() => {
                             />
                         </Col>
                         <Col>
-
+                            <SingleFileUploader
+                                value={store.file}
+                                onChange={store.setFile}
+                            />
                         </Col>
                     </Row>
                 </CardSection>
