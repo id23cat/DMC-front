@@ -1,5 +1,5 @@
 {
-  "UnexpectedErrorHappened":  "Unexpected Error Happened.\n Id: {id}\n Code: {code}",
+  "UnexpectedErrorHappened": "Unexpected Error Happened.\n Id: {id}\n Code: {code}",
   "validation_required": "This field is required.",
   "validation_repeatPasswordNotEqual": "Passwords should be equal.",
   "validation_invalidEmailAddress": "Invalid email address.",
@@ -22,5 +22,14 @@
   "Email": "Email",
   "DataSetsStorage": "Data Sets Storage",
   "YourDataSets": "Your Data Sets",
-  "DataSetsStorage_AddNewDataSet": "Add New Data Set"
+  "DataSetsStorage_AddNewDataSet": "Add New Data Set",
+  "DataSet_GeneralInfo": "General Info",
+  "DataSet_Name": "Data Set Name",
+  "DataSet_Columns": "Columns",
+  "DataSet_ColumnType": "Column Type",
+  "DataSet_ColumnName": "Column Name",
+  "DataSetValueType_String": "String",
+  "DataSetValueType_Number": "Number",
+  "DataSetValueType_Float": "Float",
+  "DataSetValueType_DateTime": "DateTime"
 }
