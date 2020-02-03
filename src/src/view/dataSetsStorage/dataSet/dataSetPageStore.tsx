@@ -12,7 +12,16 @@ export class DataSetPageStore {
     }
 
     @action public setName = (value?: string) => this.name = value;
-    @action public setFile = (value?: File) => this.file = value;
+    @action public setFile = (value?: File) => {
+        this.file = value;
+
+        if (value) {
+            const reader = new FileReader();
+            reader.readAsText(value);
+        } else {
+            this.columns = [];
+        }
+    };
 
     constructor(public id?: string) {
     }

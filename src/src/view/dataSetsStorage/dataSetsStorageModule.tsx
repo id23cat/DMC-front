@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, RoutesModule } from "../../../core/routing/routesModule";
+import { Route, RoutesModule } from "../../core/routing/routesModule";
 import { DataSetsStorageListPage } from "./dataSetsStorageListPage";
 import { DataSetPage } from "./dataSet/dataSetPage";
 

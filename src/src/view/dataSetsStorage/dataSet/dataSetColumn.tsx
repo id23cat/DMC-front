@@ -2,10 +2,10 @@ import React from "react";
 import { DataSetColumnStore } from "./dataSetColumnStore";
 import { observer } from "mobx-react-lite";
 import { Col, ListGroupItem, Row } from "reactstrap";
-import { FormInput, FormSingleEnumSelect } from "../../../../components/forms";
+import { FormInput, FormSingleEnumSelect } from "../../../components/forms";
 import { DataSetValueType } from "./dataSetValueType";
-import { enumeration } from "../../../../core/localization/local";
-import { required } from "../../../../components/forms/validations";
+import { enumeration } from "../../../core/localization/local";
+import { required } from "../../../components/forms/validations";
 
 interface Props {
     store: DataSetColumnStore;

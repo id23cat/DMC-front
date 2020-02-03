@@ -1,19 +1,32 @@
 import { Route, RoutesModule } from "../core/routing/routesModule";
 import React from "react";
-import { SignOut } from "./public/signOut/signOut";
-import { InternalModule } from "./internal/internalModule";
-import { userContextStore } from "../stores/userContextStore";
-import { PublicModule } from "./public/publicModule";
-import { observer } from "mobx-react-lite";
+import { SignOut } from "./signOut/signOut";
+import { DataSetsStorageModule } from "./dataSetsStorage/dataSetsStorageModule";
+import { Login } from "./login/login";
+import { SignUpPage } from "./signUp/signUpPage";
+import { authenticated } from "../core/routing/guards/authenticationGuard";
 
 const routes: Array<Route> = [
+    {
+        path: "/data-sets",
+        guards: [authenticated],
+        component: DataSetsStorageModule,
+    },
     {
         path: "/signOut",
         component: SignOut,
     },
     {
+        path: "/login",
+        component: Login,
+    },
+    {
+        path: "/signUp",
+        component: SignUpPage,
+    },
+    {
         path: "/",
-        component: observer(() => userContextStore.isAuthenticated ? <InternalModule /> : <PublicModule />),
+        component: () => <></>,
     },
 ];
 

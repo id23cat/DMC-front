@@ -21,19 +21,17 @@ export const App = observer(() => {
     }, []);
 
     return (
-        <>
-            <RawIntlProvider value={localStore.intlShape}>
-                <Router history={routingStore.history}>
-                    <ApiErrorHandler>
-                        <MainLayout>
-                            {isContextLoaded && <RootModule />}
-                        </MainLayout>
-                    </ApiErrorHandler>
-                </Router>
-                {NotificationsContainer}
-            </RawIntlProvider>
+        <RawIntlProvider value={localStore.intlShape}>
+            <Router history={routingStore.history}>
+                <ApiErrorHandler>
+                    <MainLayout>
+                        {isContextLoaded && <RootModule />}
+                    </MainLayout>
+                </ApiErrorHandler>
+            </Router>
+            {NotificationsContainer}
             <LoadingAnimationWrapper />
-        </>
+        </RawIntlProvider>
     );
 });
 

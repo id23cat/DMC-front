@@ -1,18 +1,18 @@
 import { observer, useLocalStore } from "mobx-react-lite";
 import { DataSetPageStore } from "./dataSetPageStore";
 import React from "react";
-import { IdParams } from "../../../../typings/customTypings";
+import { IdParams } from "../../../typings/customTypings";
 import { useParams } from "react-router-dom";
-import { CardSectionActionConfigs, CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
-import { CardSection } from "../../../../components/layouts/sections/cardSection";
-import { Form } from "../../../../components/forms/form";
+import { CardSectionActionConfigs, CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
+import { CardSection } from "../../../components/layouts/sections/cardSection";
+import { Form } from "../../../components/forms/form";
 import useAsyncEffect from "use-async-effect";
-import { routingStore } from "../../../../stores/routingStore";
-import { FormInput } from "../../../../components/forms";
-import { required } from "../../../../components/forms/validations";
+import { routingStore } from "../../../stores/routingStore";
+import { FormInput } from "../../../components/forms";
+import { required } from "../../../components/forms/validations";
 import { DataSetColumn } from "./dataSetColumn";
 import { Col, ListGroup, Row } from "reactstrap";
-import { SingleFileUploader } from "../../../../components/controls/fileUpload/singleFileUploader";
+import { SingleFileUploader } from "../../../components/controls/fileUpload/singleFileUploader";
 
 const actions: Array<CardSectionActionConfigs> = [
     {

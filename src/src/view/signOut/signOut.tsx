@@ -1,8 +1,8 @@
 import React from "react";
-import { Local } from "../../../core/localization/local";
+import { Local } from "../../core/localization/local";
 import useAsyncEffect from "use-async-effect";
-import { routingStore } from "../../../stores/routingStore";
-import { userContextStore } from "../../../stores/userContextStore";
+import { routingStore } from "../../stores/routingStore";
+import { userContextStore } from "../../stores/userContextStore";
 
 export const SignOut = () => {
     useAsyncEffect(async () => {

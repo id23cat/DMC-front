@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { CardSectionActionConfigs, CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
-import { CardSection } from "../../../components/layouts/sections/cardSection";
+import { CardSectionActionConfigs, CardSectionsGroup } from "../../components/layouts/sections/cardSectionsGroup";
+import { CardSection } from "../../components/layouts/sections/cardSection";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import useAsyncEffect from "use-async-effect";
-import { routingStore } from "../../../stores/routingStore";
+import { routingStore } from "../../stores/routingStore";
 
 const actions: Array<CardSectionActionConfigs> = [
     {
