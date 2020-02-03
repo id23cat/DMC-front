@@ -10,5 +10,6 @@ export class SignUpPageStore {
     @action setConfirmPassword = (value?: string) => this.confirmPassword = value;
 
     public submit = async () => {
+        // TODO: add
     };
 }
