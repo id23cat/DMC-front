@@ -4,6 +4,7 @@
   "validation_repeatPasswordNotEqual": "Passwords should be equal.",
   "validation_invalidEmailAddress": "Invalid email address.",
   "validation_nameShouldBeUniq": "Name should be uniq.",
+  "validation_passwordsShouldBeEqual": "Passwords should be equal.",
   "SuccessfullySaved": "Successfully Saved",
   "Login": "Login",
   "Password": "Password",

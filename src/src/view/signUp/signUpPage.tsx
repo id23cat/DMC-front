@@ -23,13 +23,13 @@ export const SignUpPage = observer(() => {
                 type="password"
                 onChange={store.setPassword}
                 value={store.password}
-                validations={[required]} />
+                validations={[required, store.passwordsShouldBeEqual]} />
             <FormInput
                 label="ConfirmPassword"
                 type="password"
                 onChange={store.setConfirmPassword}
                 value={store.confirmPassword}
-                validations={[required]} />
+                validations={[required, store.passwordsShouldBeEqual]} />
             <Button color="primary">
                 <Local id="SignUp" />
             </Button>
