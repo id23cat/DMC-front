@@ -3,3 +3,7 @@
 @function box-shadow($color) {
     @return 0 0 0 $control-focus-width rgba($color, .25);
 }
+
+@mixin clickable {
+    cursor: pointer;
+}

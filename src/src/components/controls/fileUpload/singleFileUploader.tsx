@@ -1,4 +1,4 @@
-import { FileUploader, FileUploaderProps } from "./fileUploader";
+import { FilesDropzone, FileUploaderProps } from "./filesDropzone/filesDropzone";
 import { ControlProps } from "../index";
 import React from "react";
 
@@ -8,7 +8,7 @@ export type SingleFileUploaderProps =
 
 export const SingleFileUploader = ({ value, onChange, ...rest }: SingleFileUploaderProps) => {
     return (
-        <FileUploader
+        <FilesDropzone
             {...rest}
             onChange={files => onChange(files[0])}
             value={value ? [value] : []}

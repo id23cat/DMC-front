@@ -6,6 +6,7 @@
   "validation_nameShouldBeUniq": "Name should be uniq.",
   "validation_passwordsShouldBeEqual": "Passwords should be equal.",
   "SuccessfullySaved": "Successfully Saved",
+  "DrugOrClickToSelectFile": "Drag or click to select files",
   "Login": "Login",
   "Password": "Password",
   "SignIn": "Sign in",

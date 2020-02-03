@@ -1,0 +1,15 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
+.files-dropzone {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    border: 2px dashed color("primary");
+
+    @include clickable;
+
+    &:focus {
+        outline: none;
+    }
+}
