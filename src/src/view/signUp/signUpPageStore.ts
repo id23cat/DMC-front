@@ -1,12 +1,13 @@
 import { action, observable } from "mobx";
 import { ValidationFunction } from "../../components/forms/validations";
+import { UserAccountService } from "../../core/services/userAccountService";
 
 export class SignUpPageStore {
-    @observable login?: string;
+    @observable username?: string;
     @observable password?: string;
     @observable confirmPassword?: string;
 
-    @action setLogin = (value?: string) => this.login = value;
+    @action setUsername = (value?: string) => this.username = value;
     @action setPassword = (value?: string) => this.password = value;
     @action setConfirmPassword = (value?: string) => this.confirmPassword = value;
 
@@ -15,6 +16,6 @@ export class SignUpPageStore {
     };
 
     public submit = async () => {
-        // TODO: add
+        await UserAccountService.signUp(this.username!, this.password!);
     };
 }

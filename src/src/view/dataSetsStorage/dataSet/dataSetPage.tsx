@@ -8,11 +8,11 @@ import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { Form } from "../../../components/forms/form";
 import useAsyncEffect from "use-async-effect";
 import { routingStore } from "../../../stores/routingStore";
-import { FormInput } from "../../../components/forms";
+import { FormInput, FormSingleFileSelect } from "../../../components/forms";
 import { required } from "../../../components/forms/validations";
 import { DataSetColumn } from "./dataSetColumn";
 import { Col, ListGroup, Row } from "reactstrap";
-import { SingleFileUploader } from "../../../components/controls/fileUpload/singleFileUploader";
+import { SingleFileSelect } from "../../../components/controls/fileUpload/singleFileSelect";
 
 const actions: Array<CardSectionActionConfigs> = [
     {
@@ -44,9 +44,11 @@ export const DataSetPage = observer(() => {
                             />
                         </Col>
                         <Col>
-                            <SingleFileUploader
+                            <FormSingleFileSelect
+                                label="DataSet_DataSet"
                                 value={store.file}
                                 onChange={store.setFile}
+                                validations={[required]}
                             />
                         </Col>
                     </Row>

@@ -7,6 +7,7 @@
   "validation_passwordsShouldBeEqual": "Passwords should be equal.",
   "SuccessfullySaved": "Successfully Saved",
   "DrugOrClickToSelectFile": "Drag or click to select files",
+  "Account": "Account",
   "Login": "Login",
   "Password": "Password",
   "SignIn": "Sign in",

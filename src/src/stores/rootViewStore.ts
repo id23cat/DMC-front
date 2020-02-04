@@ -2,6 +2,7 @@ import { action, computed, observable } from "mobx";
 import { AccountMenuItem, NavItemConfig } from "../components/layouts/header/header";
 import { userContextStore } from "./userContextStore";
 import { routingStore } from "./routingStore";
+import { UserAccountService } from "../core/services/userAccountService";
 
 const navItems: Array<NavItemConfig> = [
     {
@@ -21,7 +22,7 @@ const accountMenuItems: Array<AccountMenuItem> = [
     },
     {
         title: "SignOut",
-        onClick: () => userContextStore.signOut(),
+        onClick: UserAccountService.signOut,
         withDivider: true,
     },
 ];

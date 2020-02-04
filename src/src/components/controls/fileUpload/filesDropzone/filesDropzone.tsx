@@ -1,11 +1,11 @@
 import React from "react";
-import { ControlProps } from "../../index";
 import { useDropzone } from "react-dropzone";
 import { Local } from "../../../../core/localization/local";
 
-export interface FileUploaderProps extends ControlProps<Array<File>> {
+export interface FileUploaderProps {
     multiple?: boolean;
     accept?: string | Array<string>;
+    onChange: (files: Array<File>) => void;
 }
 
 export const FilesDropzone = ({ onChange, ...rest }: FileUploaderProps) => {

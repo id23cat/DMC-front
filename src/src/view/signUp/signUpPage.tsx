@@ -14,9 +14,8 @@ export const SignUpPage = observer(() => {
         <Form onValidSubmit={store.submit}>
             <FormInput
                 label="Login"
-                type="email"
-                onChange={store.setLogin}
-                value={store.login}
+                onChange={store.setUsername}
+                value={store.username}
                 validations={[required]} />
             <FormInput
                 label="Password"

@@ -1,5 +1,5 @@
 import { Local } from "../../core/localization/local";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { ControlProps } from "../controls";
 import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
@@ -35,10 +35,10 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
         return () => context.remove(validator);
     }, [context, controlProps.value, validations, isUsed]);
 
-    const onChange = (value: TValue) => {
+    const onChange = useCallback((value: TValue) => {
         setIsUsed(true);
         controlProps.onChange(value);
-    };
+    }, [controlProps]);
 
     const error = validate(controlProps.value, validations);
 
