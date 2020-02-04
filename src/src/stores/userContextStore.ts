@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { action, observable } from "mobx";
 
 class UserContextStore {
     @observable public isAuthenticated: boolean;
@@ -12,6 +12,13 @@ class UserContextStore {
     public loadContext = async () => {
         // TODO: add
     };
+
+    @action
+    public signOut = async () => {
+        // TODO: add
+        this.isAuthenticated = false;
+        await this.loadContext();
+    }
 }
 
 export const userContextStore = new UserContextStore();

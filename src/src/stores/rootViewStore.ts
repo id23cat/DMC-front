@@ -6,14 +6,22 @@ import { routingStore } from "./routingStore";
 const navItems: Array<NavItemConfig> = [
     {
         href: "/data-sets",
-        title: "DataSetsStorage"
-    }
+        title: "DataSetsStorage",
+    },
+    {
+        href: "/workplace",
+        title: "Workplace",
+    },
 ];
 
 const accountMenuItems: Array<AccountMenuItem> = [
     {
+        title: "Account",
+        onClick: () => routingStore.goto("/account"),
+    },
+    {
         title: "SignOut",
-        onClick: () => routingStore.goto("/signOut"),
+        onClick: () => userContextStore.signOut(),
         withDivider: true,
     },
 ];
