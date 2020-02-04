@@ -1,0 +1,21 @@
+@import "src/styles/mixins";
+
+.workplace-page {
+    display: flex;
+    justify-content: space-between;
+
+    & > .workplace-action {
+        align-items: center;
+        justify-content: center;
+
+        flex-basis: 31%;
+        min-height: 300px;
+
+        .workplace-action-title {
+        }
+
+        &:hover {
+            box-shadow: box-shadow(color("primary"));
+        }
+    }
+}

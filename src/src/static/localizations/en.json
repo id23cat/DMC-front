@@ -35,5 +35,8 @@
   "DataSetValueType_String": "String",
   "DataSetValueType_Number": "Number",
   "DataSetValueType_Float": "Float",
-  "DataSetValueType_DateTime": "DateTime"
+  "DataSetValueType_DateTime": "DateTime",
+  "Workplace_MyAlgorithms": "My Algorithms",
+  "Workplace_AlgorithmsConstructor": "Algorithms Constructor",
+  "Workplace_AlgorithmsTesting": "Workplace Algorithms Testing"
 }

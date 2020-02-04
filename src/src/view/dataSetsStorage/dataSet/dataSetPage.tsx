@@ -12,7 +12,6 @@ import { FormInput, FormSingleFileSelect } from "../../../components/forms";
 import { required } from "../../../components/forms/validations";
 import { DataSetColumn } from "./dataSetColumn";
 import { Col, ListGroup, Row } from "reactstrap";
-import { SingleFileSelect } from "../../../components/controls/fileUpload/singleFileSelect";
 
 const actions: Array<CardSectionActionConfigs> = [
     {

@@ -5,6 +5,7 @@ import { Login } from "./login/login";
 import { SignUpPage } from "./signUp/signUpPage";
 import { authenticated } from "../core/routing/guards/authenticationGuard";
 import { anonymous } from "../core/routing/guards/anonymousGuard";
+import { WorkPlaceModule } from "./workplace/workplaceModule";
 
 const routes: Array<Route> = [
     {
@@ -15,7 +16,7 @@ const routes: Array<Route> = [
     {
         path: "/workplace",
         guards: [authenticated],
-        component: () => <></>,
+        component: WorkPlaceModule,
     },
     {
         path: "/account",
