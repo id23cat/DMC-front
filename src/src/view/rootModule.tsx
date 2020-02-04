@@ -4,6 +4,7 @@ import { DataSetsStorageModule } from "./dataSetsStorage/dataSetsStorageModule";
 import { Login } from "./login/login";
 import { SignUpPage } from "./signUp/signUpPage";
 import { authenticated } from "../core/routing/guards/authenticationGuard";
+import { anonymous } from "../core/routing/guards/anonymousGuard";
 
 const routes: Array<Route> = [
     {
@@ -24,6 +25,7 @@ const routes: Array<Route> = [
     {
         path: "/login",
         component: Login,
+        guards: [anonymous]
     },
     {
         path: "/signUp",

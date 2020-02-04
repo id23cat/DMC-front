@@ -1,5 +1,4 @@
 import { action, observable } from "mobx";
-import { routingStore } from "../../stores/routingStore";
 import { UserAccountService } from "../../core/services/userAccountService";
 
 export class LoginStore {
@@ -12,6 +11,5 @@ export class LoginStore {
     @action
     public signIn = async () => {
         await UserAccountService.signIn(this.username!, this.password!);
-        routingStore.goto("/");
     };
 }
