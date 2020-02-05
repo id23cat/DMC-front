@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import { Switch, Route as HistoryRoute, Redirect } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Redirect, Route as HistoryRoute, Switch } from "react-router-dom";
 import { GuardProps } from "./guards";
-import { routingStore } from "../../stores/routingStore";
+import { EventBus } from "../events/eventsButs";
 
 interface Props {
     routes: Array<Route>;
@@ -13,23 +13,22 @@ export interface Route {
     exact?: boolean;
     redirectTo?: string;
     guards?: Array<React.FC<GuardProps>>;
+    className?: string;
 }
 
 export const RoutesModule = ({ routes }: Props) => {
     const renderedRoutes = useMemo(() => {
-        const result = routes.map(({ exact, path, component, redirectTo, guards }, index) => {
-            let cmp = component;
+        return routes.map((route, index) => {
+            const { exact, path, component, redirectTo, guards } = route;
+            let cmp = wrapComponent(route, component);
             if (guards && !redirectTo) {
-                cmp = applyGuards(guards, component!);
+                cmp = applyGuards(guards, cmp!);
             }
 
             return redirectTo
-                ? <Redirect key={index} from={path} to={{ pathname: redirectTo }} exact={exact}/>
-                : <HistoryRoute key={index} path={path} component={cmp} exact={exact}/>;
+                ? <Redirect key={index} from={path} to={{ pathname: redirectTo }} exact={exact} />
+                : <HistoryRoute key={index} path={path} component={cmp} exact={exact} />;
         });
-        result.push(<Redirect key={routingStore.basePath} to={routingStore.basePath}/>);
-
-        return result;
     }, [routes]);
 
     return (
@@ -40,5 +39,19 @@ export const RoutesModule = ({ routes }: Props) => {
 };
 
 function applyGuards(guards: Array<React.FC<GuardProps>>, component: React.FC): React.FC {
-    return guards.reduce((acc, Guard) => () => <Guard component={acc}/>, component);
+    return guards.reduce((acc, Guard) => () => <Guard component={acc} />, component);
+}
+
+function wrapComponent(route: Route, Component?: React.FC): React.FC | undefined {
+    if (!Component) {
+        return;
+    }
+
+    return () => {
+        useEffect(() => {
+            EventBus.publish("routeChanged", route);
+        }, []);
+
+        return <Component />;
+    };
 }

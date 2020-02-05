@@ -1,11 +1,14 @@
-import { rootViewStore } from "../../../stores/rootViewStore";
-import { ApiError } from "./apiError";
+import { rootViewStore } from "../../stores/rootViewStore";
+import { ApiError } from "./errors/apiError";
 import * as queryString from "querystring";
+import { Dictionary } from "../../typings/customTypings";
+import { UserAccountService } from "../services/userAccountService";
 
-interface Options {
+interface HttpRequestOptions {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
     body?: any;
+    headers?: HeadersInit;
 }
 
 const apiConstants = {
@@ -16,16 +19,16 @@ const apiConstants = {
     },
 };
 
-export class HttpApi {
+export class DmcRestApi {
     public static get = async <TData extends any>(url: string, query?: any): Promise<TData> => {
-        return HttpApi.request<TData>({
+        return DmcRestApi.request<TData>({
             method: "GET",
             url: query ? `${url}?${queryString.stringify(query)}` : url,
         });
     };
 
     public static post = async <TData extends any>(url: string, body?: any): Promise<TData> => {
-        return HttpApi.request<TData>({
+        return DmcRestApi.request<TData>({
             method: "POST",
             url: url,
             body: body,
@@ -33,7 +36,7 @@ export class HttpApi {
     };
 
     public static put = async <TData extends any>(url: string, body?: any): Promise<TData> => {
-        return HttpApi.request<TData>({
+        return DmcRestApi.request<TData>({
             method: "PUT",
             url: url,
             body: body,
@@ -41,39 +44,50 @@ export class HttpApi {
     };
 
     public static delete = async <TData extends any>(url: string): Promise<TData> => {
-        return HttpApi.request<TData>({
+        return DmcRestApi.request<TData>({
             method: "DELETE",
             url: url,
         });
     };
 
-    private static request = async <TData extends any>(options: Options): Promise<TData> => {
-        HttpApi.toggleLoading(true);
+    private static request = async <TData extends any>(options: HttpRequestOptions): Promise<TData> => {
+        DmcRestApi.toggleLoading(true);
         let response: Response;
         try {
             response = await fetch(options.url, {
                 method: options.method,
-                body: HttpApi.getBody(options),
+                body: DmcRestApi.getBody(options),
                 credentials: "same-origin",
                 headers: {
+                    ...DmcRestApi.getHeaders(),
                     "Content-Type": "application/json",
                     Accept: "application/json",
                 },
             });
         } finally {
-            HttpApi.toggleLoading(false);
+            DmcRestApi.toggleLoading(false);
         }
 
-        return await HttpApi.parseResponse<TData>(response);
+        return await DmcRestApi.parseResponse<TData>(response);
     };
 
-    private static getBody = (options: Options) => {
+    private static getHeaders = (): Dictionary<any> | undefined => {
+        const headers = {} as any;
+        const token = UserAccountService.getUserAccessToken();
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        return headers;
+    };
+
+    private static getBody = (options: HttpRequestOptions) => {
         return options.body && JSON.stringify(options.body);
     };
 
     private static parseResponse = async <TData extends any>(response: Response): Promise<TData> => {
         if (!response.ok) {
-            HttpApi.handleError(response);
+            DmcRestApi.handleError(response);
         }
 
         const text = await response.text();

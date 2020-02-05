@@ -3,11 +3,13 @@ import { userContextStore } from "../../stores/userContextStore";
 import { UserApi } from "../api/userApi";
 
 export class UserAccountService {
+    private static accessTokenKey = "user_access_token";
+
     public static signIn = async (username: string, password: string) => {
         const { token } = await UserApi.signIn({ username, password });
         runInAction(() => {
             userContextStore.isAuthenticated = true;
-            userContextStore.token = token;
+            localStorage.setItem(UserAccountService.accessTokenKey, token);
         });
 
         await UserAccountService.loadContext();
@@ -18,12 +20,19 @@ export class UserAccountService {
     };
 
     public static signOut = async () => {
-        // TODO: add
         userContextStore.isAuthenticated = false;
+        localStorage.removeItem(UserAccountService.accessTokenKey);
         await UserAccountService.loadContext();
     };
 
     public static loadContext = async () => {
         // TODO: add
+        if (localStorage.getItem(UserAccountService.accessTokenKey)) {
+            userContextStore.isAuthenticated = true;
+        }
+    };
+
+    public static getUserAccessToken = (): string | null => {
+        return localStorage.getItem(UserAccountService.accessTokenKey);
     };
 }

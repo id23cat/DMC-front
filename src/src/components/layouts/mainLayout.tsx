@@ -13,8 +13,8 @@ export const MainLayout = observer((props: Props) => {
     return (
         <div className="layout">
             <Header navItems={rootViewStore.navItems} accountItems={rootViewStore.accountMenuItems}/>
-            <main>
-                <Container fluid>
+            <main className={rootViewStore.layoutClassName}>
+                <Container fluid className="main-container">
                     {props.children}
                 </Container>
             </main>

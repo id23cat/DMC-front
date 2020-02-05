@@ -10,7 +10,7 @@ import { RawIntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 import { NotificationsContainer } from "./components/notifications/notifications";
-import { ApiErrorHandler } from "./core/api/http/apiErrorHandler";
+import { ApiErrorHandler } from "./core/api/errors/apiErrorHandler";
 import { UserAccountService } from "./core/services/userAccountService";
 
 export const App = observer(() => {

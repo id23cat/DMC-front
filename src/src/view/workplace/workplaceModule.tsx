@@ -1,6 +1,7 @@
 import { Route, RoutesModule } from "../../core/routing/routesModule";
 import React from "react";
 import { WorkPlacePage } from "./workPlacePage";
+import { AlgorithmsConstructorPage } from "./algorithmsConstructor/algorithmsConstructorPage";
 
 const routes: Array<Route> = [
     {
@@ -9,7 +10,7 @@ const routes: Array<Route> = [
     },
     {
         path: "/workplace/algorithms-constructor",
-        component: () => <></>,
+        component: AlgorithmsConstructorPage,
     },
     {
         path: "/workplace/algorithms-testing",
@@ -18,7 +19,7 @@ const routes: Array<Route> = [
     {
         path: "/",
         component: WorkPlacePage,
-    }
+    },
 ];
 
 export const WorkPlaceModule = () => <RoutesModule routes={routes} />;

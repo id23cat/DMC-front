@@ -40,6 +40,7 @@ const defaultAccountActions: Array<AccountMenuItem> = [
 
 class RootViewStore {
     @observable private loadingCount: number = 0;
+    @observable public layoutClassName?: string;
 
     @computed
     public get navItems(): Array<NavItemConfig> | undefined {
@@ -49,6 +50,10 @@ class RootViewStore {
 
         return navItems;
     }
+
+    @action public setLayoutClassName = (value?: string) => {
+        this.layoutClassName = value;
+    };
 
     @computed
     public get accountMenuItems(): Array<AccountMenuItem> | undefined {

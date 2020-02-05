@@ -1,20 +1,28 @@
-.account-menu {
-    & > .account-toggler {
-        background-color: transparent;
-        border: 0;
-        font-size: 30px;
-        line-height: 30px;
-        box-shadow: none;
+@import "src/styles/variables";
 
-        i {
+header {
+    height: $header-height;
+
+    .account-menu {
+        & > .account-toggler {
+            background-color: transparent;
+            border: 0;
             font-size: 30px;
             line-height: 30px;
-        }
+            box-shadow: none;
 
-        &:hover, &:focus, &:active {
-            border: 0 !important;
-            background-color: transparent !important;
-            box-shadow: none !important;
+            i {
+                font-size: 30px;
+                line-height: 30px;
+            }
+
+            &:hover, &:focus, &:active {
+                border: 0 !important;
+                background-color: transparent !important;
+                box-shadow: none !important;
+            }
         }
     }
+
 }
+

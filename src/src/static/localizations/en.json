@@ -10,6 +10,7 @@
   "Account": "Account",
   "Login": "Login",
   "Password": "Password",
+  "ConfirmPassword": "Confirm Password",
   "SignIn": "Sign in",
   "SignUp": "Sign up",
   "Submit": "Submit",

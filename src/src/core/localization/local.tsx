@@ -1,11 +1,11 @@
 import { FormattedMessage } from "react-intl";
-import { Dictionary, KeyOrJSX } from "../../typings/customTypings";
+import { KeyOrJSX } from "../../typings/customTypings";
 import React from "react";
 import { localStore } from "../../stores/localStore";
 
 interface Props {
     id: string;
-    values?: Dictionary;
+    values?: any;
 }
 
 interface EnumLocalProps {
@@ -13,7 +13,7 @@ interface EnumLocalProps {
     value: string;
 }
 
-const enumsMap: Map<any, string> = new Map<any, string>();
+const enumNameKey = Symbol("enum_name_key");
 
 export const Local = (props: Props) => <FormattedMessage {...props} />;
 export const EnumLocal = ({ enumObject, value }: EnumLocalProps) =>
@@ -23,19 +23,23 @@ export const enumLocal = (enumObject: any, value: string): string =>
     localStore.getLocalizedMessage(getEnumKey(enumObject, value));
 
 function getEnumKey(enumObject: any, value: string): string {
-    const enumValue = enumsMap.get(enumObject);
+    const enumName = enumObject[enumNameKey];
 
-    if (!enumValue) {
+    if (!enumName) {
         throw new Error("You should first register enum via enumeration function");
     }
 
-    return enumValue + "_" + value;
+    return enumName + "_" + value;
 }
 
 export const ensureLocal = (value?: KeyOrJSX) => {
     return typeof value === "string" ? <Local id={value} /> : value;
 };
 
-export function enumeration<T>(enumObject: T, name: string) {
-    enumsMap.set(enumObject, name);
+export function enumeration(enumObject: any, name: string) {
+    if (enumObject[enumNameKey]) {
+        throw new Error(`You already registered this enumeration ${name}`);
+    }
+
+    enumObject[enumNameKey] = name;
 }
