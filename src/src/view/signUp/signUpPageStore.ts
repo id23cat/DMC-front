@@ -1,6 +1,7 @@
 import { action, observable } from "mobx";
 import { ValidationFunction } from "../../components/forms/validations";
 import { UserAccountService } from "../../core/services/userAccountService";
+import { routingStore } from "../../stores/routingStore";
 
 export class SignUpPageStore {
     @observable username?: string;
@@ -17,5 +18,6 @@ export class SignUpPageStore {
 
     public submit = async () => {
         await UserAccountService.signUp(this.username!, this.password!);
+        routingStore.gotoBase();
     };
 }

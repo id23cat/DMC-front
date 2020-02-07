@@ -26,10 +26,11 @@ export class UserAccountService {
     };
 
     public static loadContext = async () => {
-        // TODO: add
-        if (localStorage.getItem(UserAccountService.accessTokenKey)) {
-            userContextStore.isAuthenticated = true;
-        }
+        const result = await UserApi.getUserContext();
+        runInAction(() => {
+            Object.assign(userContextStore, result);
+            userContextStore.isAuthenticated = !!result.id;
+        });
     };
 
     public static getUserAccessToken = (): string | null => {

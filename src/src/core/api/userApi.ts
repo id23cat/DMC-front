@@ -1,4 +1,4 @@
-import { AuthenticationRequestDto, AuthenticationResultDto, UserDto } from "./dtos";
+import { AuthenticationRequestDto, AuthenticationResultDto, UserContext, UserDto } from "./dtos";
 import { DmcRestApi } from "./dmcRestApi";
 
 export class UserApi {
@@ -8,5 +8,9 @@ export class UserApi {
 
     public static signUp = async (data: UserDto) => {
         return DmcRestApi.post("/register", data);
+    };
+
+    public static getUserContext = (): Promise<UserContext> => {
+        return DmcRestApi.get<UserContext>("/getUserContext");
     };
 }

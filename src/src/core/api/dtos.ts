@@ -11,3 +11,8 @@ export interface UserDto {
 export interface AuthenticationResultDto {
     token: string;
 }
+
+export interface UserContext {
+    id?: string;
+    username?: string;
+}
