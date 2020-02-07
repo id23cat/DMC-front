@@ -1,9 +1,8 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, PropsWithChildren, useCallback, useRef } from "react";
 import { Form as FormComponent } from "reactstrap";
 import { ValidationProvider } from "./validationProvider";
 
 interface Props {
-    children: React.ReactNode | React.ReactNodeArray;
     onValidSubmit?: () => void;
 }
 
@@ -11,17 +10,17 @@ export const Form = (
     {
         onValidSubmit,
         children,
-    }: Props,
+    }: PropsWithChildren<Props>,
 ) => {
     const validationProvider = useRef<ValidationProvider>(null);
 
-    const submit = (e: FormEvent) => {
+    const submit = useCallback((e: FormEvent) => {
         e.preventDefault();
 
         if (validationProvider.current!.validate()) {
             onValidSubmit && onValidSubmit();
         }
-    };
+    }, [onValidSubmit]);
 
     return (
         <FormComponent onSubmit={submit}>
