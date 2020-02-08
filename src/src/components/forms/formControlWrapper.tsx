@@ -1,5 +1,14 @@
 import { Local } from "../../core/localization/local";
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+    forwardRef,
+    Ref, RefAttributes,
+    useCallback,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useMemo, useRef,
+    useState,
+} from "react";
 import { ControlProps } from "../controls";
 import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
@@ -14,7 +23,31 @@ export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TVa
     validations?: Array<ValidationFunction<TValue>>;
 }
 
-export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TValue>>(
+const withValidation = (
+    Control: React.FC<any & RefAttributes<ValidationHandlers>>,
+) => {
+    return <TValue, TControlProps extends ControlProps<TValue>>(props: FormWrapperProps<TValue, TControlProps>) => {
+        const controlRef = useRef<ValidationHandlers>(null);
+        const context = useContext(ValidationContext);
+        useEffect(() => {
+            const validator = () => {
+                controlRef.current!.setIsUsed(true);
+                return !!validate();
+            };
+            context.add(validator);
+            return () => context.remove(validator);
+        }, [context]);
+
+        return <Control {...props} ref={controlRef} />;
+    };
+};
+
+interface ValidationHandlers {
+    setIsUsed: (isUsed: boolean) => void;
+    validate: () => boolean;
+}
+
+export const FormControlWrapper = withValidation(forwardRef(<TValue, TControlProps extends ControlProps<TValue>>(
     {
         control: Control,
         label,
@@ -22,41 +55,32 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
         controlProps,
         validations,
     }: FormWrapperProps<TValue, TControlProps>,
+    ref: Ref<ValidationHandlers>,
 ) => {
+    useImperativeHandle(ref, () => ({
+        setIsUsed: setIsUsed,
+        validate: () => !!validate(controlProps.value, validations),
+    }), [controlProps.value, validations]);
     const [isUsed, setIsUsed] = useState<boolean>(false);
-    const context = useContext(ValidationContext);
-
-    useEffect(() => {
-        const validator = () => {
-            setIsUsed(true);
-            return !validate(controlProps.value, validations);
-        };
-        context.add(validator);
-        return () => context.remove(validator);
-    }, [context, controlProps.value, validations, isUsed]);
 
     const onChange = useCallback((value: TValue) => {
         setIsUsed(true);
         controlProps.onChange(value);
-    }, [controlProps]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [controlProps.onChange]);
 
     const error = validate(controlProps.value, validations);
-
-    const serializerProps = JSON.stringify(controlProps);
-    const memoControl = useMemo(
-        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [serializerProps, isUsed, name, error]);
-    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error}/>, [error, isUsed]);
+    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
+    const labelComponent = useMemo(() => <Local id={label} />, [label]);
 
     return (
         <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-            <label htmlFor={name}><Local id={label}/></label>
-            {memoControl}
+            <label htmlFor={name}>{labelComponent}</label>
+            <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange} />
             {errorMessage}
         </FormGroup>
     );
-};
+}));
 
 function getClassNames(isUsed: boolean, error?: string): string {
     const classNames = [];
@@ -87,8 +111,8 @@ interface ErrorMessageProps {
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
         <span className="validation-error">
-            <Icon icon={icons.error}/>
-            <Local id={`validation_${error}`}/>
+            <Icon icon={icons.error} />
+            <Local id={`validation_${error}`} />
         </span>
     );
 };
