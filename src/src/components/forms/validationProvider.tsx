@@ -1,4 +1,12 @@
-import React, { createContext } from "react";
+import React, {
+    createContext,
+    forwardRef,
+    PropsWithChildren,
+    Ref,
+    useCallback,
+    useImperativeHandle,
+    useState,
+} from "react";
 
 interface Context {
     add: (validator: () => boolean) => void;
@@ -6,6 +14,10 @@ interface Context {
 }
 
 type ValidatorType = () => boolean;
+
+export interface ValidationProviderHandlers {
+    isValid: () => boolean;
+}
 
 const defaultContextValue: Context = {
     add: () => {
@@ -16,41 +28,40 @@ const defaultContextValue: Context = {
 
 export const ValidationContext = createContext<Context>(defaultContextValue);
 
-export class ValidationProvider extends React.Component {
-    private readonly contextObj: Context;
-    private validators: Array<ValidatorType> = [];
-
-    constructor(props: any) {
-        super(props);
-
-        this.contextObj = {
-            add: this.addValidator,
-            remove: this.removeValidator,
-        };
-    }
-
-    public render() {
-        return (
-            <ValidationContext.Provider value={this.contextObj}>
-                {this.props.children}
-            </ValidationContext.Provider>
-        );
-    }
-
-    public validate = (): boolean => {
+export const ValidationProvider = forwardRef<ValidationProviderHandlers, PropsWithChildren<object>>((
+    { children }: PropsWithChildren<object>,
+    ref: Ref<ValidationProviderHandlers>,
+) => {
+    const [validators, setValidators] = useState<Array<ValidatorType>>([]);
+    const isValid = useCallback((): boolean => {
         let result = true;
-        for (const val of this.validators) {
+        for (const val of validators) {
             result = val() && result;
         }
 
         return result;
-    };
+    }, [validators]);
 
-    private addValidator = (validator: ValidatorType) => {
-        this.validators.push(validator);
-    };
+    useImperativeHandle(ref, () => ({
+        isValid,
+    }), [isValid]);
 
-    private removeValidator = (validator: ValidatorType) => {
-        this.validators = this.validators.filter(v => v !== validator);
-    };
-}
+    const addValidator = useCallback((validator: ValidatorType) => {
+        setValidators([...validators, validator]);
+    }, [validators]);
+
+    const removeValidator = useCallback((validator: ValidatorType) => {
+        setValidators(validators.filter(v => v !== validator));
+    }, [validators]);
+
+    const [contextObject] = useState<Context>({
+        add: addValidator,
+        remove: removeValidator,
+    });
+
+    return (
+        <ValidationContext.Provider value={contextObject}>
+            {children}
+        </ValidationContext.Provider>
+    );
+});

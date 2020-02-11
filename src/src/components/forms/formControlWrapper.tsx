@@ -30,12 +30,12 @@ const withValidation = (
         const controlRef = useRef<ValidationHandlers>(null);
         const context = useContext(ValidationContext);
         useEffect(() => {
-            const validator = () => {
+            const isValid = () => {
                 controlRef.current!.setIsUsed(true);
-                return !!validate();
+                return controlRef.current!.isValid();
             };
-            context.add(validator);
-            return () => context.remove(validator);
+            context.add(isValid);
+            return () => context.remove(isValid);
         }, [context]);
 
         return <Control {...props} ref={controlRef} />;
@@ -44,7 +44,7 @@ const withValidation = (
 
 interface ValidationHandlers {
     setIsUsed: (isUsed: boolean) => void;
-    validate: () => boolean;
+    isValid: () => boolean;
 }
 
 export const FormControlWrapper = withValidation(forwardRef(<TValue, TControlProps extends ControlProps<TValue>>(
@@ -59,7 +59,7 @@ export const FormControlWrapper = withValidation(forwardRef(<TValue, TControlPro
 ) => {
     useImperativeHandle(ref, () => ({
         setIsUsed: setIsUsed,
-        validate: () => !!validate(controlProps.value, validations),
+        isValid: () => !validate(controlProps.value, validations),
     }), [controlProps.value, validations]);
     const [isUsed, setIsUsed] = useState<boolean>(false);
 
