@@ -35,12 +35,7 @@ const routes: Array<Route> = [
     },
     {
         path: "/",
-        exact: true,
-        component: () => <></>,
-    },
-    {
-        path: "/",
-        redirectTo: "/",
+        redirectTo: "/workplace",
     },
 ];
 
