@@ -1,6 +1,7 @@
-import { runInAction } from "mobx";
+import { action, runInAction } from "mobx";
 import { userContextStore } from "../../stores/userContextStore";
 import { UserApi } from "../api/userApi";
+import { ApiError } from "../api/errors/apiError";
 
 export class UserAccountService {
     private static accessTokenKey = "user_access_token";
@@ -20,20 +21,36 @@ export class UserAccountService {
     };
 
     public static signOut = async () => {
-        userContextStore.isAuthenticated = false;
-        localStorage.removeItem(UserAccountService.accessTokenKey);
+        UserAccountService.clearAccountData();
         await UserAccountService.loadContext();
     };
 
     public static loadContext = async () => {
-        const result = await UserApi.getUserContext();
-        runInAction(() => {
-            Object.assign(userContextStore, result);
-            userContextStore.isAuthenticated = !!result.id;
-        });
+        try {
+            const result = await UserApi.getUserContext();
+            runInAction(() => {
+                Object.assign(userContextStore, result);
+                userContextStore.isAuthenticated = !!result.id;
+            });
+        } catch (e) {
+            const error = e as ApiError;
+            if (error.response.status === 401) {
+                UserAccountService.clearAccountData();
+            } else {
+                throw e;
+            }
+        }
     };
 
     public static getUserAccessToken = (): string | null => {
         return localStorage.getItem(UserAccountService.accessTokenKey);
+    };
+
+    @action
+    private static clearAccountData = () => {
+        userContextStore.isAuthenticated = false;
+        userContextStore.username = undefined;
+        userContextStore.id = undefined;
+        localStorage.removeItem(UserAccountService.accessTokenKey);
     };
 }

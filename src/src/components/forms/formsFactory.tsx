@@ -1,13 +1,16 @@
 import React from "react";
 import { ResponsiveWrapper } from "../layouts/responsiveWrapper";
 import { FormControlProps } from "./formControls";
-import { InputControlProps } from "../controls/inputControl";
+import { InputControlProps, InputControlValue } from "../controls/inputControl";
 import { FormInput } from "./index";
 import { Observer } from "mobx-react-lite";
+import { ValidationFunction } from "./validations";
 
 interface FormFactoryControlProps<TStore> {
     store: TStore;
 }
+
+type StoreProps<TStore, TValue> = (store: TStore) => TValue;
 
 export class FormsFactory<TStore> {
     public controls: Array<React.FC<FormFactoryControlProps<TStore>>> = [];
@@ -35,15 +38,17 @@ export class FormsFactory<TStore> {
 
     public input = (
         label: string,
-        valueAccessor: (store: TStore) => string | undefined,
-        onChange: (store: TStore) => (value?: string | undefined) => void,
-        options?: (store: TStore) => Partial<FormControlProps<string | undefined, InputControlProps>>,
+        valueAccessor: StoreProps<TStore, InputControlValue>,
+        onChange: StoreProps<TStore, (value?: InputControlValue) => void>,
+        validations?: StoreProps<TStore, Array<ValidationFunction<InputControlValue>>>,
+        options?: (store: TStore) => Partial<FormControlProps<InputControlValue, InputControlProps>>,
     ): FormsFactory<TStore> => {
-        this.pushControl<FormControlProps<string | undefined, InputControlProps>>(FormInput, store => ({
-            ...(options ? options(store) : {}),
+        this.pushControl<FormControlProps<InputControlValue, InputControlProps>>(FormInput, store => ({
             label: label,
             value: valueAccessor(store),
             onChange: onChange(store),
+            validations: validations && validations(store),
+            ...(options && options(store)),
         }));
 
         return this;
@@ -64,7 +69,7 @@ export class FormsFactory<TStore> {
         this.controls.push(
             ({ store }: FormFactoryControlProps<TStore>) => (
                 <Observer>
-                    {() => <Control {...(options(store))} />}
+                    {() => <Control {...options(store)} />}
                 </Observer>
             ),
         );

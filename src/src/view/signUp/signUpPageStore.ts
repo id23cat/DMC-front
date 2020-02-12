@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import { ValidationFunction } from "../../components/forms/validations";
 import { UserAccountService } from "../../core/services/userAccountService";
 import { routingStore } from "../../stores/routingStore";
@@ -12,8 +12,12 @@ export class SignUpPageStore {
     @action setPassword = (value?: string) => this.password = value;
     @action setConfirmPassword = (value?: string) => this.confirmPassword = value;
 
-    public passwordsShouldBeEqual: ValidationFunction<string | undefined> = () => {
-        return this.password !== this.confirmPassword ? "passwordsShouldBeEqual" : undefined;
+    // public passwordsShouldBeEqual: ValidationFunction<string | undefined> = () => {
+    //     return this.password !== this.confirmPassword ? "passwordsShouldBeEqual" : undefined;
+    // };
+    @computed
+    public get passwordsShouldBeEqual(): ValidationFunction<string | undefined> {
+        return this.password !== this.confirmPassword ? () => "passwordsShouldBeEqual" : () => undefined;
     };
 
     public submit = async () => {

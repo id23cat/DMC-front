@@ -11,12 +11,9 @@ import { FormsFactory } from "../../components/forms/formsFactory";
 
 const FormFieldsControl = FormsFactory
     .new<LoginStore>()
-    .input("Login", store => store.username, store => store.setLogin, _ => ({
-        validations: [required],
-    }))
-    .input("Password", store => store.password, store => store.setPassword, _ => ({
+    .input("Login", store => store.username, store => store.setLogin, _ => [required])
+    .input("Password", store => store.password, store => store.setPassword, _ => [required], _ => ({
         type: "password",
-        validations: [required],
     }))
     .build();
 
