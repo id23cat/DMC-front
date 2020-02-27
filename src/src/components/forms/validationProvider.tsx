@@ -1,11 +1,4 @@
-import React, {
-    createContext,
-    forwardRef,
-    PropsWithChildren,
-    Ref,
-    useImperativeHandle,
-    useMemo,
-} from "react";
+import React, { createContext, forwardRef, PropsWithChildren, Ref, useImperativeHandle, useMemo } from "react";
 
 type ValidatorType = () => boolean;
 
@@ -41,18 +34,17 @@ class InternalContext implements Context {
 
 export const ValidationContext = createContext<Context>(new InternalContext());
 
-export const ValidationProvider = forwardRef<ValidationProviderHandlers, PropsWithChildren<object>>((
-    { children }: PropsWithChildren<object>,
-    ref: Ref<ValidationProviderHandlers>,
-) => {
-    const contextObject = useMemo<InternalContext>(() => new InternalContext(), []);
-    useImperativeHandle(ref, () => ({
-        isValid: contextObject.isValid,
-    }), [contextObject]);
+export const ValidationProvider = forwardRef<ValidationProviderHandlers, PropsWithChildren<object>>(
+    ({ children }: PropsWithChildren<object>, ref: Ref<ValidationProviderHandlers>) => {
+        const contextObject = useMemo<InternalContext>(() => new InternalContext(), []);
+        useImperativeHandle(
+            ref,
+            () => ({
+                isValid: contextObject.isValid,
+            }),
+            [contextObject],
+        );
 
-    return (
-        <ValidationContext.Provider value={contextObject}>
-            {children}
-        </ValidationContext.Provider>
-    );
-});
+        return <ValidationContext.Provider value={contextObject}>{children}</ValidationContext.Provider>;
+    },
+);

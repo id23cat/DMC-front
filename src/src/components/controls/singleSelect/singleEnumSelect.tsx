@@ -8,15 +8,14 @@ export interface SingleEnumSelectProps extends Omit<SingleSelectProps, "options"
 }
 
 export const SingleEnumSelect = ({ enumObject, ...rest }: SingleEnumSelectProps) => {
-    const options = useMemo<Array<SelectItem<string>>>(() => Object.keys(enumObject).map(i => ({
-        text: enumLocal(enumObject, i),
-        value: i,
-    })), [enumObject]);
-
-    return (
-        <SingleSelect<string>
-            {...rest}
-            options={options}
-        />
+    const options = useMemo<Array<SelectItem<string>>>(
+        () =>
+            Object.keys(enumObject).map(i => ({
+                text: enumLocal(enumObject, i),
+                value: i,
+            })),
+        [enumObject],
     );
+
+    return <SingleSelect<string> {...rest} options={options} />;
 };

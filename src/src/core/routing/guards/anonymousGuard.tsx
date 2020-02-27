@@ -8,9 +8,13 @@ import { Observer } from "mobx-react-lite";
 export const anonymous = ({ component: Component }: GuardProps) => {
     return (
         <Observer>
-            {() => !userContextStore.isAuthenticated
-                ? <Component />
-                : <Redirect to={{ pathname: routingStore.basePath }} />}
+            {() =>
+                !userContextStore.isAuthenticated ? (
+                    <Component />
+                ) : (
+                    <Redirect to={{ pathname: routingStore.basePath }} />
+                )
+            }
         </Observer>
     );
 };

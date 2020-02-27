@@ -8,9 +8,9 @@ export class SignUpPageStore {
     @observable password?: string;
     @observable confirmPassword?: string;
 
-    @action setUsername = (value?: string) => this.username = value;
-    @action setPassword = (value?: string) => this.password = value;
-    @action setConfirmPassword = (value?: string) => this.confirmPassword = value;
+    @action setUsername = (value?: string) => (this.username = value);
+    @action setPassword = (value?: string) => (this.password = value);
+    @action setConfirmPassword = (value?: string) => (this.confirmPassword = value);
 
     // public passwordsShouldBeEqual: ValidationFunction<string | undefined> = () => {
     //     return this.password !== this.confirmPassword ? "passwordsShouldBeEqual" : undefined;
@@ -18,7 +18,7 @@ export class SignUpPageStore {
     @computed
     public get passwordsShouldBeEqual(): ValidationFunction<string | undefined> {
         return this.password !== this.confirmPassword ? () => "passwordsShouldBeEqual" : () => undefined;
-    };
+    }
 
     public submit = async () => {
         await UserAccountService.signUp(this.username!, this.password!);

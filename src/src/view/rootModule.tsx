@@ -27,7 +27,7 @@ const routes: Array<Route> = [
     {
         path: "/login",
         component: Login,
-        guards: [anonymous]
+        guards: [anonymous],
     },
     {
         path: "/signUp",

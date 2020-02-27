@@ -24,9 +24,7 @@ export const App = observer(() => {
         <RawIntlProvider value={localStore.intlShape}>
             <Router history={routingStore.history}>
                 <ApiErrorHandler>
-                    <MainLayout>
-                        {isContextLoaded && <RootModule />}
-                    </MainLayout>
+                    <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
                 </ApiErrorHandler>
             </Router>
             {NotificationsContainer}
@@ -34,4 +32,3 @@ export const App = observer(() => {
         </RawIntlProvider>
     );
 });
-

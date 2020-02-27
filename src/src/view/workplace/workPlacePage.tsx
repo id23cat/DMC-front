@@ -27,18 +27,17 @@ interface ActionOptions {
 export const WorkPlacePage = () => {
     return (
         <div className="workplace-page">
-            {actions.map((v, index) => <WorkplaceAction key={index} {...v} />)}
+            {actions.map((v, index) => (
+                <WorkplaceAction key={index} {...v} />
+            ))}
         </div>
     );
 };
 
-
 const WorkplaceAction = ({ href, title }: ActionOptions) => {
     return (
         <Card className="clickable workplace-action" onClick={() => routingStore.goto(href)}>
-            <span className="workplace-action-title">
-                {ensureLocal(title)}
-            </span>
+            <span className="workplace-action-title">{ensureLocal(title)}</span>
         </Card>
     );
 };

@@ -15,7 +15,7 @@ export const ApiErrorHandler = ({ children }: PropsWithChildren<{}>) => {
 
 const onUnhandledRejection = (event: PromiseRejectionEvent): void => {
     const error = event.reason;
-    if (error instanceof (ApiError)) {
+    if (error instanceof ApiError) {
         handleApiError(error);
     }
 };

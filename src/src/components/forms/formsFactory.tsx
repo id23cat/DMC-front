@@ -57,7 +57,9 @@ export class FormsFactory<TStore> {
     public build = (): React.FC<FormFactoryControlProps<TStore>> => {
         return ({ store }: FormFactoryControlProps<TStore>) => (
             <>
-                {this.controls.map((Control, index) => <Control key={index} store={store} />)}
+                {this.controls.map((Control, index) => (
+                    <Control key={index} store={store} />
+                ))}
             </>
         );
     };
@@ -66,13 +68,9 @@ export class FormsFactory<TStore> {
         Control: React.FC<TProps>,
         options: (store: TStore) => TProps,
     ): FormsFactory<TStore> => {
-        this.controls.push(
-            ({ store }: FormFactoryControlProps<TStore>) => (
-                <Observer>
-                    {() => <Control {...options(store)} />}
-                </Observer>
-            ),
-        );
+        this.controls.push(({ store }: FormFactoryControlProps<TStore>) => (
+            <Observer>{() => <Control {...options(store)} />}</Observer>
+        ));
 
         return this;
     };

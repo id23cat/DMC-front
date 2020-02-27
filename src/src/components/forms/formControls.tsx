@@ -2,9 +2,11 @@ import { ControlProps } from "../controls";
 import React from "react";
 import { FormControlWrapper, FormWrapperProps } from "./formControlWrapper";
 
-export type FormControlProps<TValue, TProps extends ControlProps<TValue>> =
-    Omit<FormWrapperProps<TValue, TProps>, "control" | "controlProps">
-    & TProps;
+export type FormControlProps<TValue, TProps extends ControlProps<TValue>> = Omit<
+    FormWrapperProps<TValue, TProps>,
+    "control" | "controlProps"
+> &
+    TProps;
 
 export function makeFormControl<TProps extends ControlProps<TValue>, TValue>(
     control: React.FC<TProps>,

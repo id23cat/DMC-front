@@ -1,0 +1,16 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
+.algorithms-constructor {
+    .context-sidebar {
+        $sidebar-width: 400px;
+        $sidebar-padding: 16px;
+
+        display: flex;
+        flex-direction: column;
+        width: $sidebar-width;
+        height: $content-height;
+        padding: $sidebar-padding;
+        box-shadow: -4px 1px 20px 0.2rem color("cards-shadow");
+    }
+}

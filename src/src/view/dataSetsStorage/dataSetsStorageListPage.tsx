@@ -29,7 +29,8 @@ export const DataSetsStorageListPage = () => {
                         <ListGroupItem
                             className="clickable"
                             key={index}
-                            onClick={() => routingStore.goto(`/data-sets/${d.id}`)}>
+                            onClick={() => routingStore.goto(`/data-sets/${d.id}`)}
+                        >
                             <ListGroupItemHeading>{d.title}</ListGroupItemHeading>
                         </ListGroupItem>
                     ))}

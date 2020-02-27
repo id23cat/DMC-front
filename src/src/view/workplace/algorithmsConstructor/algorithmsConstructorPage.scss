@@ -1,9 +1,15 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
 .algorithms-constructor-page {
     .algorithms-constructor {
         display: flex;
         flex-direction: row;
 
-        .algorithms-constructor-sidebar {
+        .work-table {
+            width: 100%;
+            height: $content-height;
+            overflow: hidden;
         }
     }
 }
@@ -15,5 +21,3 @@ main.algorithms-constructor-page {
         padding: 0;
     }
 }
-
-

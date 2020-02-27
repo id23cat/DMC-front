@@ -25,17 +25,15 @@ export const RoutesModule = ({ routes }: Props) => {
                 cmp = applyGuards(guards, cmp!);
             }
 
-            return redirectTo
-                ? <Redirect key={index} from={path} to={{ pathname: redirectTo }} exact={exact} />
-                : <HistoryRoute key={index} path={path} component={cmp} exact={exact} />;
+            return redirectTo ? (
+                <Redirect key={index} from={path} to={{ pathname: redirectTo }} exact={exact} />
+            ) : (
+                <HistoryRoute key={index} path={path} component={cmp} exact={exact} />
+            );
         });
     }, [routes]);
 
-    return (
-        <Switch>
-            {renderedRoutes}
-        </Switch>
-    );
+    return <Switch>{renderedRoutes}</Switch>;
 };
 
 function applyGuards(guards: Array<React.FC<GuardProps>>, component: React.FC): React.FC {

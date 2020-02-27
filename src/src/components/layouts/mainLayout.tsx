@@ -12,13 +12,13 @@ interface Props {
 export const MainLayout = observer((props: Props) => {
     return (
         <div className="layout">
-            <Header navItems={rootViewStore.navItems} accountItems={rootViewStore.accountMenuItems}/>
+            <Header navItems={rootViewStore.navItems} accountItems={rootViewStore.accountMenuItems} />
             <main className={rootViewStore.layoutClassName}>
                 <Container fluid className="main-container">
                     {props.children}
                 </Container>
             </main>
-            <Footer/>
+            <Footer />
         </div>
     );
 });

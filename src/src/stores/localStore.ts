@@ -4,7 +4,7 @@ import { Dictionary } from "../typings/customTypings";
 import { createIntl, IntlShape } from "react-intl";
 
 const messages: Dictionary = {
-    "en": en,
+    en: en,
 };
 
 class LocalStore {

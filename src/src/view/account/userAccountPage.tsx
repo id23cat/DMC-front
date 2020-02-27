@@ -6,11 +6,13 @@ import { observer, useLocalStore } from "mobx-react-lite";
 import { UserAccountStore } from "./userAccountStore";
 import { FormsFactory } from "../../components/forms/formsFactory";
 
-const FormFieldsControl = FormsFactory
-    .new<UserAccountStore>()
+const FormFieldsControl = FormsFactory.new<UserAccountStore>()
     .inResponsiveWrapper(3, factory =>
-        factory
-            .input("Account_Username", store => store.username, store => value => store.username = value),
+        factory.input(
+            "Account_Username",
+            store => store.username,
+            store => value => (store.username = value),
+        ),
     )
     .build();
 
@@ -19,10 +21,14 @@ export const UserAccountPage = observer(() => {
 
     return (
         <Form>
-            <CardSectionsGroup topActions={[{
-                title: "Save",
-                color: "primary",
-            }]}>
+            <CardSectionsGroup
+                topActions={[
+                    {
+                        title: "Save",
+                        color: "primary",
+                    },
+                ]}
+            >
                 <CardSection title="MyAccount">
                     <FormFieldsControl store={store} />
                 </CardSection>
@@ -30,8 +36,3 @@ export const UserAccountPage = observer(() => {
         </Form>
     );
 });
-
-
-
-
-

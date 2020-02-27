@@ -7,9 +7,7 @@ import { Observer } from "mobx-react-lite";
 export const authenticated = ({ component: Component }: GuardProps) => {
     return (
         <Observer>
-            {() => userContextStore.isAuthenticated
-                ? <Component />
-                : <Redirect to={{ pathname: "/login" }} />}
+            {() => (userContextStore.isAuthenticated ? <Component /> : <Redirect to={{ pathname: "/login" }} />)}
         </Observer>
     );
 };

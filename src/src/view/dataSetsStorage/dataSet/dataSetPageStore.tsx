@@ -11,7 +11,7 @@ export class DataSetPageStore {
         return !this.id;
     }
 
-    @action public setName = (value?: string) => this.name = value;
+    @action public setName = (value?: string) => (this.name = value);
     @action public setFile = (value?: File) => {
         this.file = value;
 
@@ -23,8 +23,7 @@ export class DataSetPageStore {
         }
     };
 
-    constructor(public id?: string) {
-    }
+    constructor(public id?: string) {}
 
     public loadData = async () => {
         if (this.isNew) {
@@ -38,4 +37,3 @@ export class DataSetPageStore {
         // TODO: stub
     };
 }
-

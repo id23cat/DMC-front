@@ -1,9 +1,10 @@
 $colors: (
-    "background": #F8F7F9,
+    "background": #f8f7f9,
     "primary": #4e5191,
     "error": #ff1a26,
     "success": #54a941,
     "border-color": #9799c7,
+    "cards-shadow": #1b171740,
 );
 
 @function color($color) {
@@ -11,4 +12,5 @@ $colors: (
 }
 
 $header-height: 60px;
-$control-focus-width: .2rem;
+$control-focus-width: 0.2rem;
+$content-height: calc(100vh - #{$header-height});

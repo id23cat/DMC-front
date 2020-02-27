@@ -1,0 +1,36 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
+.algorithms-constructor {
+    .instruments-sidebar {
+        $sidebar-width: 300px;
+        $sidebar-actions-top-margin: 10px;
+        $sidebar-action-height: 50px;
+
+        display: flex;
+        flex-direction: column;
+        width: $sidebar-width;
+        height: $content-height;
+        box-shadow: -4px 1px 20px 0.2rem color("cards-shadow");
+
+        .sidebar-actions {
+            margin: $sidebar-actions-top-margin 0 0 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+
+            .action {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: $sidebar-action-height;
+                list-style-type: none;
+
+                &:hover {
+                    @include clickable;
+                    background-color: color("cards-shadow");
+                }
+            }
+        }
+    }
+}

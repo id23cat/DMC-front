@@ -4,30 +4,26 @@ import { ValidationProvider, ValidationProviderHandlers } from "./validationProv
 
 interface Props {
     onValidSubmit?: () => void;
+    className?: string;
 }
 
-export const Form = (
-    {
-        onValidSubmit,
-        children,
-    }: PropsWithChildren<Props>,
-) => {
+export const Form = ({ onValidSubmit, children, className }: PropsWithChildren<Props>) => {
     const validationProvider = useRef<ValidationProviderHandlers>(null);
 
-    const submit = useCallback((e: FormEvent) => {
-        e.preventDefault();
+    const submit = useCallback(
+        (e: FormEvent) => {
+            e.preventDefault();
 
-        if (validationProvider.current!.isValid()) {
-            onValidSubmit && onValidSubmit();
-        }
-    }, [onValidSubmit]);
+            if (validationProvider.current!.isValid()) {
+                onValidSubmit && onValidSubmit();
+            }
+        },
+        [onValidSubmit],
+    );
 
     return (
-        <FormComponent onSubmit={submit}>
-            <ValidationProvider ref={validationProvider}>
-                {children}
-            </ValidationProvider>
+        <FormComponent onSubmit={submit} className={className}>
+            <ValidationProvider ref={validationProvider}>{children}</ValidationProvider>
         </FormComponent>
     );
 };
-

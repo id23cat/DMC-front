@@ -16,8 +16,7 @@ interface EnumLocalProps {
 const enumNameKey = Symbol("enum_name_key");
 
 export const Local = (props: Props) => <FormattedMessage {...props} />;
-export const EnumLocal = ({ enumObject, value }: EnumLocalProps) =>
-    <Local id={getEnumKey(enumObject, value)} />;
+export const EnumLocal = ({ enumObject, value }: EnumLocalProps) => <Local id={getEnumKey(enumObject, value)} />;
 
 export const enumLocal = (enumObject: any, value: string): string =>
     localStore.getLocalizedMessage(getEnumKey(enumObject, value));

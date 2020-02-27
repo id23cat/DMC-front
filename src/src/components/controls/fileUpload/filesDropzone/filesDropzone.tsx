@@ -17,7 +17,9 @@ export const FilesDropzone = ({ onChange, ...rest }: FileUploaderProps) => {
     return (
         <div {...getRootProps()} className="files-dropzone">
             <input {...getInputProps()} />
-            <span><Local id="DrugOrClickToSelectFile" /></span>
+            <span>
+                <Local id="DrugOrClickToSelectFile" />
+            </span>
         </div>
     );
 };

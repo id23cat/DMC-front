@@ -7,17 +7,33 @@ import { Button } from "reactstrap";
 import { Local } from "../../core/localization/local";
 import { FormsFactory } from "../../components/forms/formsFactory";
 
-const FormFieldsControl = FormsFactory
-    .new<SignUpPageStore>()
-    .input("Login", store => store.username, store => store.setUsername, _ => [required])
-    .input("Password", store => store.password, store => store.setPassword, undefined, store => ({
-        type: "password",
-        validations: [required, store.passwordsShouldBeEqual],
-    }))
-    .input("ConfirmPassword", store => store.confirmPassword, store => store.setConfirmPassword, undefined, store => ({
-        type: "password",
-        validations: [required, store.passwordsShouldBeEqual],
-    }))
+const FormFieldsControl = FormsFactory.new<SignUpPageStore>()
+    .input(
+        "Login",
+        store => store.username,
+        store => store.setUsername,
+        _ => [required],
+    )
+    .input(
+        "Password",
+        store => store.password,
+        store => store.setPassword,
+        undefined,
+        store => ({
+            type: "password",
+            validations: [required, store.passwordsShouldBeEqual],
+        }),
+    )
+    .input(
+        "ConfirmPassword",
+        store => store.confirmPassword,
+        store => store.setConfirmPassword,
+        undefined,
+        store => ({
+            type: "password",
+            validations: [required, store.passwordsShouldBeEqual],
+        }),
+    )
     .build();
 
 export const SignUpPage = observer(() => {

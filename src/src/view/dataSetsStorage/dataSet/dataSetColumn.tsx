@@ -38,4 +38,3 @@ export const DataSetColumn = observer(({ store }: Props) => {
 });
 
 enumeration(DataSetValueType, "DataSetValueType");
-

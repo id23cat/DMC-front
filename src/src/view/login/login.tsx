@@ -9,12 +9,22 @@ import { routingStore } from "../../stores/routingStore";
 import { LinkButton } from "../../components/buttons/linkButton";
 import { FormsFactory } from "../../components/forms/formsFactory";
 
-const FormFieldsControl = FormsFactory
-    .new<LoginStore>()
-    .input("Login", store => store.username, store => store.setLogin, _ => [required])
-    .input("Password", store => store.password, store => store.setPassword, _ => [required], _ => ({
-        type: "password",
-    }))
+const FormFieldsControl = FormsFactory.new<LoginStore>()
+    .input(
+        "Login",
+        store => store.username,
+        store => store.setLogin,
+        _ => [required],
+    )
+    .input(
+        "Password",
+        store => store.password,
+        store => store.setPassword,
+        _ => [required],
+        _ => ({
+            type: "password",
+        }),
+    )
     .build();
 
 export const Login = observer(() => {

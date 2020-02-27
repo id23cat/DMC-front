@@ -54,7 +54,9 @@ export const DataSetPage = observer(() => {
                 </CardSection>
                 <CardSection title="DataSet_Columns">
                     <ListGroup>
-                        {store.columns.map((s, index) => <DataSetColumn key={index} store={s} />)}
+                        {store.columns.map((s, index) => (
+                            <DataSetColumn key={index} store={s} />
+                        ))}
                     </ListGroup>
                 </CardSection>
             </CardSectionsGroup>

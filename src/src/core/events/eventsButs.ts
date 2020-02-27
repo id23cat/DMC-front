@@ -1,6 +1,5 @@
 type Event = "routeChanged";
 
-
 export class EventBus {
     private static map: Map<Event, Array<Function>> = new Map<Event, Array<Function>>();
 
@@ -23,7 +22,10 @@ export class EventBus {
         const handlers = EventBus.map.get(event);
 
         if (handlers !== undefined) {
-            EventBus.map.set(event, handlers.filter(e => e !== handler));
+            EventBus.map.set(
+                event,
+                handlers.filter(e => e !== handler),
+            );
         }
     };
 }
