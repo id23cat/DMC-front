@@ -1,4 +1,4 @@
-import { Rect } from "react-konva";
+import { Rect, Text } from "react-konva";
 import React from "react";
 import { PropsWithStore } from "../../../../typings/customTypings";
 import { AlgorithmBlockStore } from "./algorithmBlockStore";

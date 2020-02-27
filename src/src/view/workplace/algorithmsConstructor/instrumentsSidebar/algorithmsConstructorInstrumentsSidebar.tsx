@@ -3,38 +3,32 @@ import { observer } from "mobx-react-lite";
 import { AlgorithmsConstructorContextStore } from "../algorithmsConstructorContextStore";
 import { PropsWithStore } from "../../../../typings/customTypings";
 import { Local } from "../../../../core/localization/local";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
-export const AlgorithmsConstructorInstrumentsSidebar = observer(
-    ({ store }: PropsWithStore<AlgorithmsConstructorContextStore>) => {
-        const actions: Array<SidebarActionProps> = [
-            {
-                title: "AddNew",
-                onClick: store.addNew,
-            },
-        ];
+type Props = PropsWithStore<AlgorithmsConstructorContextStore>;
 
-        return (
-            <div className="instruments-sidebar">
-                <ul className="sidebar-actions">
-                    {actions.map((cfg, index) => (
-                        <SidebarAction {...cfg} key={index} />
-                    ))}
-                    <li className="action">1</li>
-                </ul>
-            </div>
-        );
-    },
-);
+export const AlgorithmsConstructorInstrumentsSidebar = observer(({ store }: Props) => {
+    const actions: Array<SidebarActionProps> = [
+        {
+            title: "AddNew",
+            onClick: store.addNewBlock,
+        },
+    ];
+
+    return (
+        <div className="instruments-sidebar">
+            <ListGroup flush className="actions">
+                {actions.map(({ onClick, title }, index) => (
+                    <ListGroupItem className="action" key={index} action onClick={onClick}>
+                        <Local id={title} />
+                    </ListGroupItem>
+                ))}
+            </ListGroup>
+        </div>
+    );
+});
 
 interface SidebarActionProps {
     title: string;
     onClick: () => void;
 }
-
-const SidebarAction = ({ onClick, title }: SidebarActionProps) => {
-    return (
-        <li className="action" onClick={onClick}>
-            <Local id={title} />
-        </li>
-    );
-};

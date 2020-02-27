@@ -1,5 +1,6 @@
 import { action, computed, observable } from "mobx";
 import { AlgorithmBlockStore } from "./blocks/algorithmBlockStore";
+import { pull } from "lodash";
 
 export class AlgorithmsConstructorContextStore {
     @observable name?: string;
@@ -35,7 +36,14 @@ export class AlgorithmsConstructorContextStore {
     };
 
     @action
-    public addNew = () => {
+    public addNewBlock = () => {
         this.blocks.push(new AlgorithmBlockStore());
+    };
+
+    @action
+    public deleteCurrentSelectedBlock = () => {
+        const selected = this.selectedBlock;
+        this.selectBlock();
+        pull(this.blocks, selected);
     };
 }
