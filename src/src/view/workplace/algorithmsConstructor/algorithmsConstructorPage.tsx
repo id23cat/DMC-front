@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { AlgorithmsConstructorContextStore } from "./algorithmsConstructorContextStore";
 import { useParams } from "react-router-dom";
@@ -8,8 +8,9 @@ import { AlgorithmsConstructorInstrumentsSidebar } from "./instrumentsSidebar/al
 import { useLayoutClassName } from "../../../hooks/useLayoutClassName";
 import { Layer, Stage } from "react-konva";
 import { IdParams } from "../../../typings/customTypings";
-import { AlgorithmBlock } from "./blocks/algorithmBlock";
+import { BaseAlgorithmBlock } from "./blocks/baseAlgorithmBlock";
 import { AlgorithmsConstructorContextSidebar } from "./contextSidebar/algorithmsConstructorContextSidebar";
+import { useOutsideClickHandler } from "../../../core/hooks/useOutsideClickHandler";
 
 export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstructorContextStore | undefined>(
     undefined,
@@ -20,21 +21,30 @@ export const AlgorithmsConstructorPage = observer(() => {
     const params = useParams<IdParams>();
     const store = useLocalStore(() => new AlgorithmsConstructorContextStore(params.id));
     useAsyncEffect(store.loadData, []);
+    const ref = useRef<Stage>(null);
+    useOutsideClickHandler(ref.current && ref.current!.getStage().content, store.clearSelectedBlock);
 
     return (
         <div className="algorithms-constructor">
             <Form className="w-100">
                 <div className="d-flex">
                     <AlgorithmsConstructorInstrumentsSidebar store={store} />
-                    <Stage width={3000} height={3000} className="work-table" onClick={_ => store.selectBlock()}>
+                    <Stage
+                        ref={ref}
+                        width={3000}
+                        height={3000}
+                        className="work-table"
+                        onClick={store.clearSelectedBlock}
+                    >
                         <AlgorithmsConstructorContext.Provider value={store}>
                             <Layer>
                                 {store.blocks.map((b, index) => (
-                                    <AlgorithmBlock key={index} store={b} />
+                                    <BaseAlgorithmBlock key={index} store={b} />
                                 ))}
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>
+                    <div className="context-menu">1231231</div>
                     <AlgorithmsConstructorContextSidebar store={store} />
                 </div>
             </Form>

@@ -1,12 +1,12 @@
 import { action, computed, observable } from "mobx";
-import { AlgorithmBlockStore } from "./blocks/algorithmBlockStore";
+import { BaseAlgorithmBlockStore } from "./blocks/baseAlgorithmBlockStore";
 import { pull } from "lodash";
 
 export class AlgorithmsConstructorContextStore {
     @observable name?: string;
     @observable isPublic: boolean = false;
-    @observable blocks: Array<AlgorithmBlockStore> = [];
-    @observable selectedBlock?: AlgorithmBlockStore;
+    @observable blocks: Array<BaseAlgorithmBlockStore> = [];
+    @observable selectedBlock?: BaseAlgorithmBlockStore;
 
     @computed
     public get isNew(): boolean {
@@ -31,19 +31,24 @@ export class AlgorithmsConstructorContextStore {
     };
 
     @action
-    public selectBlock = (value?: AlgorithmBlockStore) => {
+    public selectBlock = (value?: BaseAlgorithmBlockStore) => {
         this.selectedBlock = value;
     };
 
     @action
+    public clearSelectedBlock = () => {
+        this.selectBlock();
+    };
+
+    @action
     public addNewBlock = () => {
-        this.blocks.push(new AlgorithmBlockStore());
+        this.blocks.push(new BaseAlgorithmBlockStore());
     };
 
     @action
     public deleteCurrentSelectedBlock = () => {
         const selected = this.selectedBlock;
-        this.selectBlock();
+        this.clearSelectedBlock();
         pull(this.blocks, selected);
     };
 }

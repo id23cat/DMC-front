@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import ReactSelect from "react-select";
 import { ensureLocal, Local } from "../../../core/localization/local";
 import { SelectItem } from "../multiSelect/multiSelect";
@@ -22,6 +22,7 @@ export const SingleSelect = <TData extends any>({
     isClearable,
 }: SingleSelectProps<TData>) => {
     const selectOptions = useMemo(() => mapSelectItemToOption(options), [options]);
+    const handler = useCallback(v => onChange(handleChange<TData>(v)), [onChange]);
 
     return (
         <ReactSelect
@@ -31,7 +32,7 @@ export const SingleSelect = <TData extends any>({
             backspaceRemovesValue
             placeholder={placeholder ? ensureLocal(placeholder) : <Local id="Select" />}
             options={selectOptions}
-            onChange={v => onChange(handleChange<TData>(v))}
+            onChange={handler}
             value={selectOptions.find(e => e.value === value)}
         />
     );
