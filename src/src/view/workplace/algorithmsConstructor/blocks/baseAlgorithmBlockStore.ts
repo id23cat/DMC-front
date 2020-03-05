@@ -1,4 +1,5 @@
 import { action, observable } from "mobx";
+import Konva from "konva";
 
 export class BaseAlgorithmBlockStore {
     @observable public x: number = 100;
@@ -17,6 +18,11 @@ export class BaseAlgorithmBlockStore {
 
     @action public setY = (value: number) => {
         this.y = value;
+    };
+
+    @action onDragEndHandler = (e: Konva.KonvaEventObject<DragEvent>) => {
+        this.setX(e.target.x());
+        this.setY(e.target.y());
     };
 }
 

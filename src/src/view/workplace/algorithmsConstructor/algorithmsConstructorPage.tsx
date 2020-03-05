@@ -10,7 +10,7 @@ import { Layer, Stage } from "react-konva";
 import { IdParams } from "../../../typings/customTypings";
 import { BaseAlgorithmBlock } from "./blocks/baseAlgorithmBlock";
 import { AlgorithmsConstructorContextSidebar } from "./contextSidebar/algorithmsConstructorContextSidebar";
-import { useOutsideClickHandler } from "../../../core/hooks/useOutsideClickHandler";
+import { AlgorithmsConstructorContextMenuWrapper } from "./contextMenu/algorithmsConstructorContextMenuWrapper";
 
 export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstructorContextStore | undefined>(
     undefined,
@@ -19,10 +19,9 @@ export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstr
 export const AlgorithmsConstructorPage = observer(() => {
     useLayoutClassName("algorithms-constructor-page");
     const params = useParams<IdParams>();
-    const store = useLocalStore(() => new AlgorithmsConstructorContextStore(params.id));
-    useAsyncEffect(store.loadData, []);
     const ref = useRef<Stage>(null);
-    useOutsideClickHandler(ref.current && ref.current!.getStage().content, store.clearSelectedBlock);
+    const store = useLocalStore(() => new AlgorithmsConstructorContextStore(ref, params.id));
+    useAsyncEffect(store.loadData, []);
 
     return (
         <div className="algorithms-constructor">
@@ -34,7 +33,8 @@ export const AlgorithmsConstructorPage = observer(() => {
                         width={3000}
                         height={3000}
                         className="work-table"
-                        onClick={store.clearSelectedBlock}
+                        onClick={store.onClickHandler}
+                        onContextMenu={store.onContextMenuClickHandler}
                     >
                         <AlgorithmsConstructorContext.Provider value={store}>
                             <Layer>
@@ -44,7 +44,7 @@ export const AlgorithmsConstructorPage = observer(() => {
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>
-                    <div className="context-menu">1231231</div>
+                    <AlgorithmsConstructorContextMenuWrapper store={store.contextMenuStore} />
                     <AlgorithmsConstructorContextSidebar store={store} />
                 </div>
             </Form>

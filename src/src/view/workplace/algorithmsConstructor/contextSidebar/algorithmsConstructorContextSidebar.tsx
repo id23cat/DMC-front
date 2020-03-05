@@ -18,7 +18,7 @@ export const AlgorithmsConstructorContextSidebar = observer(({ store }: Props) =
                         {selectedBlock && selectedBlock.name}
                         <hr />
                     </h4>
-                    <Button color="primary" onClick={_ => store.deleteCurrentSelectedBlock()}>
+                    <Button color="primary" onClick={store.deleteCurrentSelectedBlock}>
                         <Local id="Remove" />
                     </Button>
                 </>
