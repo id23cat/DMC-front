@@ -12,13 +12,13 @@
         width: $sidebar-width;
         height: $content-height;
         padding: $sidebar-y-padding 0;
-        box-shadow: -4px 1px 20px 0.2rem color("cards-shadow");
+        box-shadow: -4px 1px 20px 0.2rem color("shadow");
 
         .actions {
             .action {
                 &:hover {
                     @include clickable;
-                    background-color: color("cards-shadow");
+                    background-color: color("shadow");
                 }
             }
         }

@@ -2,7 +2,7 @@ import { action, observable } from "mobx";
 import { RefObject } from "react";
 import { Stage } from "react-konva";
 import Konva from "konva";
-import { MenuOptionItem } from "./algorithmsConstructorContextMenuWrapper";
+import { MenuOptionItem } from "./algorithmsConstructorContextMenu";
 
 export class AlgorithmsConstructorContextMenuManager {
     private readonly defaultOffsetForMenu: number = 4;

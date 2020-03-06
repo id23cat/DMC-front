@@ -7,7 +7,7 @@ import { AlgorithmsConstructorContextMenuManager } from "./algorithmsConstructor
 
 type Props = PropsWithStore<AlgorithmsConstructorContextMenuManager>;
 
-export const AlgorithmsConstructorContextMenuWrapper = observer(({ store }: Props) => {
+export const AlgorithmsConstructorContextMenu = observer(({ store }: Props) => {
     return (
         <div
             style={{
@@ -15,13 +15,13 @@ export const AlgorithmsConstructorContextMenuWrapper = observer(({ store }: Prop
                 left: store.left,
             }}
             hidden={!store.display}
-            className="context-menu-wrapper"
+            className="context-menu"
         >
             <ListGroup>
                 {store.options.map(({ text, onClick }, index) => (
                     <ListGroupItem
                         action
-                        className="clickable"
+                        className="clickable menu-option"
                         key={index}
                         onClick={_ => store.onClickWrapper(onClick)}
                     >

@@ -1,0 +1,18 @@
+@import "src/styles/variables";
+
+.algorithms-constructor-page {
+    .algorithms-constructor {
+        .context-menu {
+            $item-width: 200px;
+
+            position: absolute;
+            box-shadow: 3px 3px 12px color("shadow");
+            border-radius: 3px;
+
+            .menu-option {
+                width: $item-width;
+                padding: 3px 5px;
+            }
+        }
+    }
+}

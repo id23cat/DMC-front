@@ -4,7 +4,7 @@ import { PropsWithStore } from "../../../../typings/customTypings";
 import { BaseAlgorithmBlockStore } from "./baseAlgorithmBlockStore";
 import { observer } from "mobx-react-lite";
 import { useACContextMenuManager, useAlgorithmsConstructorContext } from "../hooks";
-import { MenuOptionItem } from "../contextMenu/algorithmsConstructorContextMenuWrapper";
+import { MenuOptionItem } from "../contextMenu/algorithmsConstructorContextMenu";
 
 export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgorithmBlockStore>) => {
     const context = useAlgorithmsConstructorContext();
@@ -19,6 +19,14 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
     );
 
     const options: Array<MenuOptionItem> = [
+        {
+            text: "Remove",
+            onClick: () => context.deleteBlock(store),
+        },
+        {
+            text: "Remove",
+            onClick: () => context.deleteBlock(store),
+        },
         {
             text: "Remove",
             onClick: () => context.deleteBlock(store),

@@ -10,7 +10,7 @@ import { Layer, Stage } from "react-konva";
 import { IdParams } from "../../../typings/customTypings";
 import { BaseAlgorithmBlock } from "./blocks/baseAlgorithmBlock";
 import { AlgorithmsConstructorContextSidebar } from "./contextSidebar/algorithmsConstructorContextSidebar";
-import { AlgorithmsConstructorContextMenuWrapper } from "./contextMenu/algorithmsConstructorContextMenuWrapper";
+import { AlgorithmsConstructorContextMenu } from "./contextMenu/algorithmsConstructorContextMenu";
 
 export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstructorContextStore | undefined>(
     undefined,
@@ -44,7 +44,7 @@ export const AlgorithmsConstructorPage = observer(() => {
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>
-                    <AlgorithmsConstructorContextMenuWrapper store={store.contextMenuStore} />
+                    <AlgorithmsConstructorContextMenu store={store.contextMenuStore} />
                     <AlgorithmsConstructorContextSidebar store={store} />
                 </div>
             </Form>
