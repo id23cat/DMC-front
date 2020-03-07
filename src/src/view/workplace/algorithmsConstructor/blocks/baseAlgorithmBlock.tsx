@@ -23,6 +23,20 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
             title: "Remove",
             onClick: () => context.deleteBlock(store),
         },
+        {
+            title: "ConnectFromVariable",
+            subMenu: store.out.map(e => ({
+                title: <>{e.from.contract}</>,
+                onClick: () => console.log(e.from.contract),
+            })),
+        },
+        {
+            title: "ConnectToVariable",
+            subMenu: store.in.map(e => ({
+                title: <>{e.to.contract}</>,
+                onClick: () => console.log(e.to.contract),
+            })),
+        },
     ];
 
     return (

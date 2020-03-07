@@ -23,7 +23,7 @@ export class BaseAlgorithmBlockStore {
                 new Connection("0_test_in_" + counter, this),
             ),
         ];
-        this.in = [
+        this.out = [
             new AlgorithmBlockConnection(
                 new Connection("1_test_from_" + counter, this),
                 new Connection("1_test_in_" + counter),

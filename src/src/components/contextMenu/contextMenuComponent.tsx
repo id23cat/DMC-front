@@ -29,12 +29,11 @@ export const ContextMenuComponent = observer(({ store }: Props) => {
     });
 
     return (
-        <>
-            <ContextMenuTrigger ref={ref as any} id={id} />
+        <ContextMenuTrigger ref={ref as any} id={id}>
             <ContextMenu id={id} className="context-menu">
                 {store.options.map(mapMenuOption)}
             </ContextMenu>
-        </>
+        </ContextMenuTrigger>
     );
 });
 
