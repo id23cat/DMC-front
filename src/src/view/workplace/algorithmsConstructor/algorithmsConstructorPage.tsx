@@ -10,6 +10,7 @@ import { Layer, Stage } from "react-konva";
 import { IdParams } from "../../../typings/customTypings";
 import { BaseAlgorithmBlock } from "./blocks/baseAlgorithmBlock";
 import { AlgorithmsConstructorContextSidebar } from "./contextSidebar/algorithmsConstructorContextSidebar";
+import { AlgorithmBlocksConnection } from "./blocks/algorithmBlocksConnection/algorithmBlocksConnection";
 
 export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstructorContextStore | undefined>(
     undefined,
@@ -33,6 +34,11 @@ export const AlgorithmsConstructorPage = observer(() => {
                                 {store.blocks.map((b, index) => (
                                     <BaseAlgorithmBlock key={index} store={b} />
                                 ))}
+                                {store.blocks
+                                    .flatMap(b => b.in)
+                                    .map((c, index) => (
+                                        <AlgorithmBlocksConnection key={index} store={c} />
+                                    ))}
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>

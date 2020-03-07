@@ -1,5 +1,6 @@
 import { action, observable } from "mobx";
 import Konva from "konva";
+import { AlgorithmBlockConnection, Connection } from "./algorithmBlocksConnection/algorithmBlocksConnection";
 
 let counter = 0;
 
@@ -43,27 +44,4 @@ export class BaseAlgorithmBlockStore {
         this.setX(e.target.x());
         this.setY(e.target.y());
     };
-}
-
-class AlgorithmBlockConnection {
-    @observable public from: Connection;
-    @observable public to: Connection;
-
-    constructor(from: Connection, to: Connection) {
-        this.from = from;
-        this.to = to;
-    }
-}
-
-class Connection {
-    @observable public block?: BaseAlgorithmBlockStore;
-    /**
-     * Generally name of variable
-     */
-    @observable public contract: string;
-
-    constructor(contract: string, block?: BaseAlgorithmBlockStore) {
-        this.block = block;
-        this.contract = contract;
-    }
 }
