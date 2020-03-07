@@ -1,7 +1,7 @@
 import React from "react";
 
-interface Props {
-    icon: string;
+export interface IconProps {
+    icon: typeof icons[keyof typeof icons];
 }
 
 export const icons = {
@@ -10,8 +10,9 @@ export const icons = {
     error: "error_outline",
     delete: "delete_forever",
     close: "close",
-};
+    contextMenuOpen: "arrow_right",
+} as const;
 
-export const Icon = ({ icon }: Props) => {
+export const Icon = ({ icon }: IconProps) => {
     return <i className="material-icons">{icon}</i>;
 };

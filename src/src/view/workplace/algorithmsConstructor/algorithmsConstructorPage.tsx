@@ -10,7 +10,6 @@ import { Layer, Stage } from "react-konva";
 import { IdParams } from "../../../typings/customTypings";
 import { BaseAlgorithmBlock } from "./blocks/baseAlgorithmBlock";
 import { AlgorithmsConstructorContextSidebar } from "./contextSidebar/algorithmsConstructorContextSidebar";
-import { AlgorithmsConstructorContextMenu } from "./contextMenu/algorithmsConstructorContextMenu";
 
 export const AlgorithmsConstructorContext = React.createContext<AlgorithmsConstructorContextStore | undefined>(
     undefined,
@@ -20,7 +19,7 @@ export const AlgorithmsConstructorPage = observer(() => {
     useLayoutClassName("algorithms-constructor-page");
     const params = useParams<IdParams>();
     const ref = useRef<Stage>(null);
-    const store = useLocalStore(() => new AlgorithmsConstructorContextStore(ref, params.id));
+    const store = useLocalStore(() => new AlgorithmsConstructorContextStore(params.id));
     useAsyncEffect(store.loadData, []);
 
     return (
@@ -28,14 +27,7 @@ export const AlgorithmsConstructorPage = observer(() => {
             <Form className="w-100">
                 <div className="d-flex">
                     <AlgorithmsConstructorInstrumentsSidebar store={store} />
-                    <Stage
-                        ref={ref}
-                        width={3000}
-                        height={3000}
-                        className="work-table"
-                        onClick={store.onClickHandler}
-                        onContextMenu={store.onContextMenuClickHandler}
-                    >
+                    <Stage ref={ref} width={3000} height={3000} className="work-table">
                         <AlgorithmsConstructorContext.Provider value={store}>
                             <Layer>
                                 {store.blocks.map((b, index) => (
@@ -44,7 +36,6 @@ export const AlgorithmsConstructorPage = observer(() => {
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>
-                    <AlgorithmsConstructorContextMenu store={store.contextMenuStore} />
                     <AlgorithmsConstructorContextSidebar store={store} />
                 </div>
             </Form>

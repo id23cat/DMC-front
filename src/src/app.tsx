@@ -9,9 +9,11 @@ import { observer } from "mobx-react-lite";
 import { RawIntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
-import { NotificationsContainer } from "./components/notifications/notifications";
+import { NotificationsContainer } from "./components/notifications/notificationsManager";
 import { ApiErrorHandler } from "./core/api/errors/apiErrorHandler";
 import { UserAccountService } from "./core/services/userAccountService";
+import { ContextMenuComponent } from "./components/contextMenu/contextMenuComponent";
+import { contextMenuManager } from "./components/contextMenu/contextMenuManager";
 
 export const App = observer(() => {
     const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
@@ -27,7 +29,8 @@ export const App = observer(() => {
                     <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
                 </ApiErrorHandler>
             </Router>
-            {NotificationsContainer}
+            <ContextMenuComponent store={contextMenuManager} />
+            <NotificationsContainer />
             <LoadingAnimationWrapper />
         </RawIntlProvider>
     );

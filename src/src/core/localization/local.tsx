@@ -8,21 +8,23 @@ interface Props {
     values?: any;
 }
 
-interface EnumLocalProps {
-    enumObject: any;
-    value: string;
+interface EnumLocalProps<TEnum extends string> {
+    enumObject: TEnum;
+    value: keyof TEnum;
 }
 
 const enumNameKey = Symbol("enum_name_key");
 
 export const Local = (props: Props) => <FormattedMessage {...props} />;
-export const EnumLocal = ({ enumObject, value }: EnumLocalProps) => <Local id={getEnumKey(enumObject, value)} />;
+export const EnumLocal = <TEnum extends string>({ enumObject, value }: EnumLocalProps<TEnum>) => (
+    <Local id={getEnumKey(enumObject, value)} />
+);
 
 export const enumLocal = (enumObject: any, value: string): string =>
     localStore.getLocalizedMessage(getEnumKey(enumObject, value));
 
-function getEnumKey(enumObject: any, value: string): string {
-    const enumName = enumObject[enumNameKey];
+function getEnumKey<TEnum>(enumObject: TEnum, value: keyof TEnum): string {
+    const enumName = (enumObject as any)[enumNameKey];
 
     if (!enumName) {
         throw new Error("You should first register enum via enumeration function");

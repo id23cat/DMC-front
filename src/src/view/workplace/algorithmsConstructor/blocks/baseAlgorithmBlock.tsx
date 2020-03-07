@@ -3,12 +3,12 @@ import React, { useCallback } from "react";
 import { PropsWithStore } from "../../../../typings/customTypings";
 import { BaseAlgorithmBlockStore } from "./baseAlgorithmBlockStore";
 import { observer } from "mobx-react-lite";
-import { useACContextMenuManager, useAlgorithmsConstructorContext } from "../hooks";
-import { MenuOptionItem } from "../contextMenu/algorithmsConstructorContextMenu";
+import { useAlgorithmsConstructorContext } from "../hooks";
+import { MenuOption } from "../../../../components/contextMenu/contextMenuComponent";
+import { contextMenuManager } from "../../../../components/contextMenu/contextMenuManager";
 
 export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgorithmBlockStore>) => {
     const context = useAlgorithmsConstructorContext();
-    const contextMenuWrapper = useACContextMenuManager();
 
     const onClick = useCallback(
         e => {
@@ -18,17 +18,9 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
         [context, store],
     );
 
-    const options: Array<MenuOptionItem> = [
+    const options: Array<MenuOption> = [
         {
-            text: "Remove",
-            onClick: () => context.deleteBlock(store),
-        },
-        {
-            text: "Remove",
-            onClick: () => context.deleteBlock(store),
-        },
-        {
-            text: "Remove",
+            title: "Remove",
             onClick: () => context.deleteBlock(store),
         },
     ];
@@ -44,7 +36,7 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
             stroke={context.selectedBlock === store ? "red" : "black"}
             onClick={onClick}
             onDragEnd={store.onDragEndHandler}
-            onContextMenu={e => contextMenuWrapper.show(e, options)}
+            onContextMenu={e => contextMenuManager.show(e, options)}
         />
     );
 });

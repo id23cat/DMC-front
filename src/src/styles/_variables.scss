@@ -11,6 +11,15 @@ $colors: (
     @return map-get($colors, $color);
 }
 
+$z-index: (
+    "auto": auto,
+    "max": 1000,
+);
+
+@function z-index($index) {
+    @return map-get($z-index, $index);
+}
+
 $header-height: 60px;
 $control-focus-width: 0.2rem;
 $content-height: calc(100vh - #{$header-height});

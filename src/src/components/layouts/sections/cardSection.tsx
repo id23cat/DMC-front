@@ -2,19 +2,13 @@ import React, { useMemo } from "react";
 import { Card, CardTitle } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
-import { IconButton } from "../../buttons/iconButton/iconButton";
+import { IconButton, IconButtonProps } from "../../buttons/iconButton/iconButton";
 
 interface Props {
     title?: KeyOrJSX;
     className?: string;
     children: React.ReactNode | React.ReactNodeArray;
-    actions?: Array<SectionActionProps>;
-}
-
-export interface SectionActionProps {
-    icon: string;
-    onClick: () => void;
-    color: "primary" | "secondary";
+    actions?: Array<IconButtonProps>;
 }
 
 export const CardSection = ({ title, className, children, actions }: Props) => {

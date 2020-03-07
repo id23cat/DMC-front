@@ -1,12 +1,11 @@
-import { Icon } from "../../icons/icon";
+import { Icon, IconProps } from "../../icons/icon";
 import React, { useMemo } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 import { uniqId } from "../../../core/utils/uniqIdUtil";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
-interface Props {
-    icon: string;
+interface Props extends Pick<IconProps, "icon"> {
     onClick: () => void;
     tooltip?: KeyOrJSX;
     className?: string;

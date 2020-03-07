@@ -1,16 +1,8 @@
 import { action, computed, observable } from "mobx";
 import { BaseAlgorithmBlockStore } from "./blocks/baseAlgorithmBlockStore";
 import { pull } from "lodash";
-import { RefObject } from "react";
-import { Stage } from "react-konva";
-import Konva from "konva";
-import { AlgorithmsConstructorContextMenuManager } from "./contextMenu/algorithmsConstructorContextMenuManager";
 
 export class AlgorithmsConstructorContextStore {
-    public contextMenuStore: AlgorithmsConstructorContextMenuManager = new AlgorithmsConstructorContextMenuManager(
-        this.stageRef,
-    );
-
     @observable name?: string;
     @observable isPublic: boolean = false;
     @observable blocks: Array<BaseAlgorithmBlockStore> = [];
@@ -21,7 +13,7 @@ export class AlgorithmsConstructorContextStore {
         return !this.id;
     }
 
-    constructor(public stageRef: RefObject<Stage>, public id?: string) {}
+    constructor(public id?: string) {}
 
     @action setName = (value?: string) => (this.name = value);
     @action setIsPublic = (value: boolean) => (this.isPublic = value);
@@ -41,18 +33,6 @@ export class AlgorithmsConstructorContextStore {
     @action
     public selectBlock = (value?: BaseAlgorithmBlockStore) => {
         this.selectedBlock = value;
-    };
-
-    @action
-    public onClickHandler = (e: Konva.KonvaEventObject<MouseEvent>) => {
-        e.evt.preventDefault();
-        this.contextMenuStore.hide();
-    };
-
-    @action
-    public onContextMenuClickHandler = (e: Konva.KonvaEventObject<PointerEvent>) => {
-        e.evt.preventDefault();
-        this.contextMenuStore.hide();
     };
 
     @action

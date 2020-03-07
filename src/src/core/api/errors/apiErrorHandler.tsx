@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect } from "react";
 import { ApiError } from "./apiError";
 import { routingStore } from "../../../stores/routingStore";
-import { notifications } from "../../../components/notifications/notifications";
+import { notificationsManager } from "../../../components/notifications/notificationsManager";
 import { Local } from "../../localization/local";
 
 export const ApiErrorHandler = ({ children }: PropsWithChildren<{}>) => {
@@ -26,7 +26,7 @@ const handleApiError = (error: ApiError): void => {
         return;
     }
 
-    notifications.error(<Local id="UnexpectedErrorHappened" values={error} />);
+    notificationsManager.error(<Local id="UnexpectedErrorHappened" values={error} />);
 };
 
 const handleUnauthorized = (): void => {

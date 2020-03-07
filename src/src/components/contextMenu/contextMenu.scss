@@ -1,0 +1,39 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+$material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
+@import "~material-design-icons-iconfont/src/material-design-icons";
+.react-contextmenu {
+    $item-width: 200px;
+    background-color: color("background");
+    box-shadow: 3px 3px 12px color("shadow");
+
+    .react-contextmenu-item:not(.react-contextmenu-submenu) {
+        width: $item-width;
+        padding: 3px 5px;
+        @include clickable;
+
+        &.react-contextmenu-item--selected {
+            background-color: color("shadow");
+        }
+
+        &.react-contextmenu-item--disabled {
+            //TODO: add
+        }
+    }
+
+    .react-contextmenu-submenu {
+        .submenu-main-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            i {
+                font-size: 19px;
+            }
+        }
+    }
+}
+
+.react-contextmenu:not(.react-contextmenu--visible) {
+    opacity: 0;
+}
