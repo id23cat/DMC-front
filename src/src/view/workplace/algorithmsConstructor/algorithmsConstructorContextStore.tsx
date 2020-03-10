@@ -54,9 +54,9 @@ export class AlgorithmsConstructorContextStore {
 
     @action
     public deleteBlock = (block: BaseAlgorithmBlockStore) => {
-        pull(this.blocks, block);
         if (this.selectedBlock === block) {
             this.clearSelectedBlock();
         }
+        pull(this.blocks, block);
     };
 }

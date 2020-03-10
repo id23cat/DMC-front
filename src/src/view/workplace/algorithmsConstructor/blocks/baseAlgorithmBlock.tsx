@@ -27,7 +27,7 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
     );
 
     return (
-        <Group x={store.x} y={store.y} draggable>
+        <Group x={store.x} y={store.y} draggable onDragEnd={store.onDragEndHandler}>
             <Rect
                 height={store.height}
                 width={store.width}
@@ -35,7 +35,6 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
                 fill="white"
                 stroke={context.selectedBlock === store ? "red" : "black"}
                 onClick={onClick}
-                onDragEnd={store.onDragEndHandler}
                 onContextMenu={e => contextMenuManager.show(e, options)}
             />
             <KonvaText
