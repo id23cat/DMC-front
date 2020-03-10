@@ -1,6 +1,11 @@
 import { action, observable } from "mobx";
 import Konva from "konva";
-import { AlgorithmBlockConnection, Connection } from "./algorithmBlocksConnection/algorithmBlockConnection";
+import { AlgorithmBlockConnection } from "./algorithmBlocksConnection/algorithmBlockConnection";
+import {
+    AlgorithmBlockConnectionSlotStore,
+    ConnectionSlotData,
+    ConnectionType,
+} from "./blockConnectionSlot/algorithmBlockConnectionSlotStore";
 
 let counter = 0;
 
@@ -10,26 +15,53 @@ export class BaseAlgorithmBlockStore {
     @observable public width: number = 100;
     @observable public height: number = 150;
 
-    @observable public name: string;
     @observable public id?: string;
+    @observable public name: string;
+    @observable public connectionSlots: Array<AlgorithmBlockConnectionSlotStore> = [];
     @observable public in: Array<AlgorithmBlockConnection> = [];
     @observable public out: Array<AlgorithmBlockConnection> = [];
 
     constructor() {
         // TODO: stub; remove after setting data
         this.name = "TEST_" + counter++;
-        this.in = [
-            new AlgorithmBlockConnection(
-                new Connection("0_test_in_" + counter),
-                new Connection("0_test_in_" + counter, this),
-            ),
+        const inConnections: Array<ConnectionSlotData> = [
+            {
+                contract: "0_test_in_" + counter,
+                contractType: "type",
+                type: ConnectionType.In,
+            },
         ];
-        this.out = [
-            new AlgorithmBlockConnection(
-                new Connection("1_test_from_" + counter, this),
-                new Connection("1_test_from_" + counter),
-            ),
+        const outConnections: Array<ConnectionSlotData> = [
+            {
+                contract: "0_test_from_" + counter,
+                contractType: "type",
+                type: ConnectionType.Out,
+            },
         ];
+
+        this.connectionSlots = inConnections
+            .map(
+                (value, index) =>
+                    new AlgorithmBlockConnectionSlotStore(
+                        this,
+                        value.contract,
+                        value.type,
+                        value.type,
+                        computeYOfConnectionSlot(this.height, inConnections.length, index),
+                    ),
+            )
+            .concat(
+                outConnections.map(
+                    (value, index) =>
+                        new AlgorithmBlockConnectionSlotStore(
+                            this,
+                            value.contract,
+                            value.type,
+                            value.type,
+                            computeYOfConnectionSlot(this.height, inConnections.length, index),
+                        ),
+                ),
+            );
     }
 
     @action public setX = (value: number) => {
@@ -44,4 +76,8 @@ export class BaseAlgorithmBlockStore {
         this.setX(e.target.x());
         this.setY(e.target.y());
     };
+}
+
+function computeYOfConnectionSlot(height: number, arrayLength: number, index: number) {
+    return (height / (arrayLength + 1)) * (index + 1);
 }

@@ -1,14 +1,13 @@
-import { Circle, Group, Label, Rect, Text as KonvaText } from "react-konva";
+import { Group, Rect, Text as KonvaText } from "react-konva";
 import React, { useCallback, useMemo } from "react";
 import { PropsWithStore } from "../../../../typings/customTypings";
 import { BaseAlgorithmBlockStore } from "./baseAlgorithmBlockStore";
 import { observer } from "mobx-react-lite";
 import { useAlgorithmsConstructorContext } from "../hooks";
 import { contextMenuManager } from "../../../../components/contextMenu/contextMenuManager";
+import { AlgorithmBlockConnectionSlot } from "./blockConnectionSlot/algorithmBlockConnectionSlotComponent";
 
-const fontSize = 18;
 const labelVerticalOffset = 10;
-const connectionSlotRadius = 7;
 
 export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgorithmBlockStore>) => {
     const context = useAlgorithmsConstructorContext();
@@ -22,30 +21,9 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
     );
 
     const options = useContextMenuOptions(store);
-    const inConnectionSlots = useMemo(
-        () =>
-            store.in.map((c, index) => (
-                <Circle
-                    key={index}
-                    y={computeYOfConnectionSlot(store.height, store.in.length, index)}
-                    radius={connectionSlotRadius}
-                    fill="black"
-                />
-            )),
-        [store.height, store.in],
-    );
-    const outConnectionSlots = useMemo(
-        () =>
-            store.out.map((c, index) => (
-                <Circle
-                    key={index}
-                    x={store.width}
-                    y={computeYOfConnectionSlot(store.height, store.out.length, index)}
-                    radius={connectionSlotRadius}
-                    fill="black"
-                />
-            )),
-        [store.height, store.out, store.width],
+    const connectionSlots = useMemo(
+        () => store.connectionSlots.map((c, index) => <AlgorithmBlockConnectionSlot key={index} store={c} />),
+        [store.connectionSlots],
     );
 
     return (
@@ -60,11 +38,15 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
                 onDragEnd={store.onDragEndHandler}
                 onContextMenu={e => contextMenuManager.show(e, options)}
             />
-            <Label y={labelVerticalOffset}>
-                <KonvaText align="center" width={store.width} fontSize={fontSize} text={store.name} fill="black" />
-            </Label>
-            {inConnectionSlots}
-            {outConnectionSlots}
+            <KonvaText
+                y={labelVerticalOffset}
+                align="center"
+                width={store.width}
+                fontSize={14}
+                text={store.name}
+                fill="black"
+            />
+            {connectionSlots}
         </Group>
     );
 });
@@ -96,7 +78,3 @@ const useContextMenuOptions = (store: BaseAlgorithmBlockStore) => {
         [store, context],
     );
 };
-
-function computeYOfConnectionSlot(height: number, arrayLength: number, index: number) {
-    return (height / (arrayLength + 1)) * (index + 1);
-}

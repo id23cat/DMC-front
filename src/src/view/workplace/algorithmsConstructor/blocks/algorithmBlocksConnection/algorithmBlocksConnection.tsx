@@ -4,19 +4,19 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { AlgorithmBlockConnection } from "./algorithmBlockConnection";
 
-type Props = PropsWithStore<AlgorithmBlockConnection>;
+export const AlgorithmBlocksConnection = observer(
+    ({ store: { from, to } }: PropsWithStore<AlgorithmBlockConnection>) => {
+        if (from.block == null || to.block == null) {
+            return null;
+        }
 
-export const AlgorithmBlocksConnection = observer(({ store: { from, to } }: Props) => {
-    if (from.block == null || to.block == null) {
-        return null;
-    }
-
-    return (
-        <Arrow
-            points={[from.block.x, from.block.y, to.block.x, to.block.y]}
-            strokeWidth={4}
-            stroke="black"
-            fill="black"
-        />
-    );
-});
+        return (
+            <Arrow
+                points={[from.block.x, from.block.y, to.block.x, to.block.y]}
+                strokeWidth={4}
+                stroke="black"
+                fill="black"
+            />
+        );
+    },
+);
