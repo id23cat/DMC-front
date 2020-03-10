@@ -1,6 +1,7 @@
 import { action, computed, observable } from "mobx";
 import { BaseAlgorithmBlockStore } from "./blocks/baseAlgorithmBlockStore";
 import { pull } from "lodash";
+import { AlgorithmBlockConnection } from "./blocks/algorithmBlocksConnection/algorithmBlockConnection";
 
 export class AlgorithmsConstructorContextStore {
     @observable name?: string;
@@ -57,4 +58,14 @@ export class AlgorithmsConstructorContextStore {
             this.clearSelectedBlock();
         }
     };
+
+    @action
+    public connect = (connection: AlgorithmBlockConnection, block: BaseAlgorithmBlockStore) => {
+
+    };
 }
+
+// class ConnectContext {
+//     @observable connection: AlgorithmBlockConnection;
+//     @observable initiator: BaseAlgorithmBlockStore;
+// }

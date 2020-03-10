@@ -1,6 +1,6 @@
 import { action, observable } from "mobx";
 import Konva from "konva";
-import { AlgorithmBlockConnection, Connection } from "./algorithmBlocksConnection/algorithmBlocksConnection";
+import { AlgorithmBlockConnection, Connection } from "./algorithmBlocksConnection/algorithmBlockConnection";
 
 let counter = 0;
 
@@ -20,14 +20,14 @@ export class BaseAlgorithmBlockStore {
         this.name = "TEST_" + counter++;
         this.in = [
             new AlgorithmBlockConnection(
-                new Connection("0_test_from_" + counter),
+                new Connection("0_test_in_" + counter),
                 new Connection("0_test_in_" + counter, this),
             ),
         ];
         this.out = [
             new AlgorithmBlockConnection(
                 new Connection("1_test_from_" + counter, this),
-                new Connection("1_test_in_" + counter),
+                new Connection("1_test_from_" + counter),
             ),
         ];
     }
