@@ -1,6 +1,5 @@
-import { action, observable } from "mobx";
+import { action, computed, observable } from "mobx";
 import Konva from "konva";
-import { AlgorithmBlockConnection } from "./algorithmBlocksConnection/algorithmBlockConnection";
 import {
     AlgorithmBlockConnectionSlotStore,
     ConnectionSlotData,
@@ -18,8 +17,14 @@ export class BaseAlgorithmBlockStore {
     @observable public id?: string;
     @observable public name: string;
     @observable public connectionSlots: Array<AlgorithmBlockConnectionSlotStore> = [];
-    @observable public in: Array<AlgorithmBlockConnection> = [];
-    @observable public out: Array<AlgorithmBlockConnection> = [];
+
+    @computed public get inConnectionSlots(): Array<AlgorithmBlockConnectionSlotStore> {
+        return this.connectionSlots.filter(e => e.type === ConnectionType.In);
+    }
+
+    @computed public get outConnectionSlots(): Array<AlgorithmBlockConnectionSlotStore> {
+        return this.connectionSlots.filter(e => e.type === ConnectionType.Out);
+    }
 
     constructor() {
         // TODO: stub; remove after setting data

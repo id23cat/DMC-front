@@ -1,12 +1,13 @@
 import { action, computed, observable } from "mobx";
 import { BaseAlgorithmBlockStore } from "./blocks/baseAlgorithmBlockStore";
 import { pull } from "lodash";
-import { AlgorithmBlockConnection } from "./blocks/algorithmBlocksConnection/algorithmBlockConnection";
+import { AlgorithmBlockConnectionStore } from "./blocks/algorithmBlocksConnection/algorithmBlockConnectionStore";
 
 export class AlgorithmsConstructorContextStore {
     @observable name?: string;
     @observable isPublic: boolean = false;
     @observable blocks: Array<BaseAlgorithmBlockStore> = [];
+    @observable connections: Array<AlgorithmBlockConnectionStore> = [];
     @observable selectedBlock?: BaseAlgorithmBlockStore;
 
     @computed
@@ -58,14 +59,4 @@ export class AlgorithmsConstructorContextStore {
             this.clearSelectedBlock();
         }
     };
-
-    @action
-    public connect = (connection: AlgorithmBlockConnection, block: BaseAlgorithmBlockStore) => {
-
-    };
 }
-
-// class ConnectContext {
-//     @observable connection: AlgorithmBlockConnection;
-//     @observable initiator: BaseAlgorithmBlockStore;
-// }

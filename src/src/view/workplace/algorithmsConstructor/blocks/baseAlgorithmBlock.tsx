@@ -62,16 +62,16 @@ const useContextMenuOptions = (store: BaseAlgorithmBlockStore) => {
             },
             {
                 title: "ConnectFromVariable",
-                subMenu: store.out.map(e => ({
-                    title: <>{e.from.contract}</>,
-                    onClick: () => console.log(e.from.contract),
+                subMenu: store.outConnectionSlots.map(e => ({
+                    title: <>{e.contract}</>,
+                    onClick: () => console.log(e.contract),
                 })),
             },
             {
                 title: "ConnectToVariable",
-                subMenu: store.in.map(e => ({
-                    title: <>{e.to.contract}</>,
-                    onClick: () => console.log(e.to.contract),
+                subMenu: store.inConnectionSlots.map(e => ({
+                    title: <>{e.contract}</>,
+                    onClick: () => console.log(e.contract),
                 })),
             },
         ],

@@ -34,11 +34,9 @@ export const AlgorithmsConstructorPage = observer(() => {
                                 {store.blocks.map((b, index) => (
                                     <BaseAlgorithmBlock key={index} store={b} />
                                 ))}
-                                {store.blocks
-                                    .flatMap(b => b.in)
-                                    .map((c, index) => (
-                                        <AlgorithmBlocksConnection key={index} store={c} />
-                                    ))}
+                                {store.connections.map((c, index) => (
+                                    <AlgorithmBlocksConnection key={index} store={c} />
+                                ))}
                             </Layer>
                         </AlgorithmsConstructorContext.Provider>
                     </Stage>
