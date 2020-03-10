@@ -75,6 +75,6 @@ const useContextMenuOptions = (store: BaseAlgorithmBlockStore) => {
                 })),
             },
         ],
-        [store, context],
+        [store, context, connectionContext],
     );
 };

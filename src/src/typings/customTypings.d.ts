@@ -13,3 +13,7 @@ interface IdParams {
 interface PropsWithStore<TStore> {
   store: TStore;
 }
+
+interface Disposable {
+  dispose: () => void;
+}

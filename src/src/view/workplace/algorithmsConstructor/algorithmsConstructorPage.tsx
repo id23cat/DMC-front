@@ -34,7 +34,7 @@ export const AlgorithmsConstructorPage = observer(() => {
                                 {store.blocks.map((b, index) => (
                                     <BaseAlgorithmBlock key={index} store={b} />
                                 ))}
-                                {store.connections.map((c, index) => (
+                                {store.allConnections.map((c, index) => (
                                     <AlgorithmBlocksConnection key={index} store={c} />
                                 ))}
                             </Layer>

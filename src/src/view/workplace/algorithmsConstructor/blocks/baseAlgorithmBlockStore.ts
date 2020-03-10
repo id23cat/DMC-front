@@ -5,10 +5,11 @@ import {
     ConnectionSlotData,
     ConnectionType,
 } from "./blockConnectionSlot/algorithmBlockConnectionSlotStore";
+import { Disposable } from "../../../../typings/customTypings";
 
 let counter = 0;
 
-export class BaseAlgorithmBlockStore {
+export class BaseAlgorithmBlockStore implements Disposable {
     @observable public x: number = 100;
     @observable public y: number = 100;
     @observable public width: number = 100;
@@ -80,6 +81,10 @@ export class BaseAlgorithmBlockStore {
     @action onDragMoveHandler = (e: Konva.KonvaEventObject<DragEvent>) => {
         this.setX(e.target.x());
         this.setY(e.target.y());
+    };
+
+    public dispose = () => {
+        this.connectionSlots.forEach(e => e.dispose());
     };
 }
 

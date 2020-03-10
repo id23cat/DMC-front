@@ -1,5 +1,7 @@
-import { action, computed } from "mobx";
+import { action, computed, observable } from "mobx";
 import { BaseAlgorithmBlockStore } from "../baseAlgorithmBlockStore";
+import { AlgorithmBlockConnectionStore } from "../algorithmBlocksConnection/algorithmBlockConnectionStore";
+import { Disposable } from "../../../../../typings/customTypings";
 
 export enum ConnectionType {
     In = "In",
@@ -12,7 +14,9 @@ export interface ConnectionSlotData {
     type: ConnectionType;
 }
 
-export class AlgorithmBlockConnectionSlotStore {
+export class AlgorithmBlockConnectionSlotStore implements Disposable {
+    @observable public connection?: AlgorithmBlockConnectionStore;
+
     @computed
     public get absoluteX(): number {
         return this.owner.x + this.x;
@@ -22,6 +26,12 @@ export class AlgorithmBlockConnectionSlotStore {
     public get absoluteY(): number {
         return this.owner.y + this.y;
     }
+
+    @action
+    public connect = (connection: AlgorithmBlockConnectionStore) => {
+        this.connection?.dispose();
+        this.connection = connection;
+    };
 
     constructor(
         public readonly owner: BaseAlgorithmBlockStore,
@@ -35,5 +45,9 @@ export class AlgorithmBlockConnectionSlotStore {
     @action
     private setData = (data: ConnectionSlotData) => {
         Object.assign(this, data);
+    };
+
+    public dispose = () => {
+        this.connection?.dispose();
     };
 }

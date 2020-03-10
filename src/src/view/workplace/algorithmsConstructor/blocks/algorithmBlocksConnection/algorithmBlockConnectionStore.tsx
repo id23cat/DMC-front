@@ -1,7 +1,8 @@
 import { observable } from "mobx";
 import { AlgorithmBlockConnectionSlotStore } from "../blockConnectionSlot/algorithmBlockConnectionSlotStore";
+import { Disposable } from "../../../../../typings/customTypings";
 
-export class AlgorithmBlockConnectionStore {
+export class AlgorithmBlockConnectionStore implements Disposable {
     @observable public readonly from: AlgorithmBlockConnectionSlotStore;
     @observable public readonly to: AlgorithmBlockConnectionSlotStore;
 
@@ -9,4 +10,9 @@ export class AlgorithmBlockConnectionStore {
         this.from = from;
         this.to = to;
     }
+
+    public dispose = () => {
+        this.from.connection = undefined;
+        this.to.connection = undefined;
+    };
 }
