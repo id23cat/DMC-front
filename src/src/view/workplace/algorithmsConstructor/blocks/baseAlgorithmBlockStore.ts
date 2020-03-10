@@ -77,7 +77,7 @@ export class BaseAlgorithmBlockStore {
         this.y = value;
     };
 
-    @action onDragEndHandler = (e: Konva.KonvaEventObject<DragEvent>) => {
+    @action onDragMoveHandler = (e: Konva.KonvaEventObject<DragEvent>) => {
         this.setX(e.target.x());
         this.setY(e.target.y());
     };

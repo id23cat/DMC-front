@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from "react";
 import { PropsWithStore } from "../../../../typings/customTypings";
 import { BaseAlgorithmBlockStore } from "./baseAlgorithmBlockStore";
 import { observer } from "mobx-react-lite";
-import { useAlgorithmsConstructorContext } from "../hooks";
+import { useAlgorithmsBlocksConnectionContext, useAlgorithmsConstructorContext } from "../hooks";
 import { contextMenuManager } from "../../../../components/contextMenu/contextMenuManager";
 import { AlgorithmBlockConnectionSlot } from "./blockConnectionSlot/algorithmBlockConnectionSlotComponent";
 
@@ -27,7 +27,7 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
     );
 
     return (
-        <Group x={store.x} y={store.y} draggable onDragEnd={store.onDragEndHandler}>
+        <Group x={store.x} y={store.y} draggable onDragMove={store.onDragMoveHandler}>
             <Rect
                 height={store.height}
                 width={store.width}
@@ -52,6 +52,7 @@ export const BaseAlgorithmBlock = observer(({ store }: PropsWithStore<BaseAlgori
 
 const useContextMenuOptions = (store: BaseAlgorithmBlockStore) => {
     const context = useAlgorithmsConstructorContext();
+    const connectionContext = useAlgorithmsBlocksConnectionContext();
 
     return useMemo(
         () => [
@@ -63,14 +64,14 @@ const useContextMenuOptions = (store: BaseAlgorithmBlockStore) => {
                 title: "ConnectFromVariable",
                 subMenu: store.outConnectionSlots.map(e => ({
                     title: <>{e.contract}</>,
-                    onClick: () => console.log(e.contract),
+                    onClick: () => connectionContext.setFrom(e),
                 })),
             },
             {
                 title: "ConnectToVariable",
                 subMenu: store.inConnectionSlots.map(e => ({
                     title: <>{e.contract}</>,
-                    onClick: () => console.log(e.contract),
+                    onClick: () => connectionContext.setTo(e),
                 })),
             },
         ],
